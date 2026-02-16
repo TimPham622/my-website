@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 
 const drawerWidth = 240;
-const navItems = [['Expertise', 'expertise'], ['My Life', 'history'], ['Projects', 'projects'], ['Music', 'music']];
+const navItems = [['About me', 'about-me'], ['My Life', 'history'], ['Projects', 'projects'], ['Music', 'music']];
 
 function Navigation({parentToChild, modeChange}: any) {
 
@@ -48,12 +48,12 @@ function Navigation({parentToChild, modeChange}: any) {
 
   const scrollToSection = (section: string) => {
     console.log(section)
-    const expertiseElement = document.getElementById(section);
-    if (expertiseElement) {
-      expertiseElement.scrollIntoView({ behavior: 'smooth' });
-      console.log('Scrolling to:', expertiseElement);  // Debugging: Ensure the element is found
+    const aboutMeElement = document.getElementById(section);
+    if (aboutMeElement) {
+      aboutMeElement.scrollIntoView({ behavior: 'smooth' });
+      console.log('Scrolling to:', aboutMeElement);  // Debugging: Ensure the element is found
     } else {
-      console.error('Element with id "expertise" not found');  // Debugging: Log error if element is not found
+      console.error('Element with id "about-me" not found');  // Debugging: Log error if element is not found
     }
   };
 
