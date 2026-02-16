@@ -10,56 +10,56 @@ function Timeline() {
   return (
     <div id="history">
       <div className="items-container">
-        <h1>Career History</h1>
+        <h1>About my Life!</h1>
         <VerticalTimeline>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
             contentArrowStyle={{ borderRight: '7px solid  white' }}
-            date="2022 - present"
+            date="2025"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Technology Consultant</h3>
-            <h4 className="vertical-timeline-element-subtitle">Dallas, TX</h4>
+            <h3 className="vertical-timeline-element-title">Started RSP</h3>
+            <h4 className="vertical-timeline-element-subtitle">Adelaide/Remote</h4>
             <p>
-              Full-stack Web Development, GenAI/LLM, Project Management, Business Development
+             Participating in a coding bootcamp to enhance my software development skills.
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2020 - 2022"
+            date="2025"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Full Stack Engineer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Laie, HI</h4>
+            <h3 className="vertical-timeline-element-title">Computer Science Club Vice President</h3>
+            <h4 className="vertical-timeline-element-subtitle">University of Adelaide</h4>
             <p>
-              Frontend Development, Backend Development, User Experience, Team Leading
+              Elected Vice President to over 700+ paid members whilst in my first year.
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2021 - 2021"
+            date="2025"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Staff Engineer Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Laie, HI</h4>
+            <h3 className="vertical-timeline-element-title">Started my University Education</h3>
+            <h4 className="vertical-timeline-element-subtitle">University of Adelaide</h4>
             <p>
-              Full-stack Development, API Development, User Experience
+              Commenced my degree in Mathematics and Computer Science.
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2020 - 2020"
+            date="2024"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Data Analyst Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Tokyo, Japan</h4>
+            <h3 className="vertical-timeline-element-title">Graduated Year 12 with a SACE certificate</h3>
+            <h4 className="vertical-timeline-element-subtitle">Adelaide High School</h4>
             <p>
-              Automation, Data Governance, Statistical Analysis
+              99.20 ATAR, Merit in Research Project and A+ in Specialist Mathematics, and Mathematical Methods. 
             </p>
           </VerticalTimelineElement>
         </VerticalTimeline>
