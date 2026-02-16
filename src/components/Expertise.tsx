@@ -7,10 +7,7 @@ function Expertise() {
             <div className="expertise-container">
                 <h1>About Me</h1>
                 <p>
-                    I am a software developer who enjoys building reliable, user-focused web experiences and
-                    continuously improving my craft. I work across the full development lifecycle—from planning
-                    and implementation to testing and deployment—and I value writing clean, maintainable code
-                    that solves real-world problems.
+I am a second year Mathematical and Computer Sciences student studying at the University of Adelaide. With a high interest in mathematics, more specifically decision theory, I hope that my future will be directed into a position where I can utilise my passion for mathematics into industry. I also have a high ambition to study postgraduate Medicine, and wish to attain a interdisciplinary expertise in both computer science and medicine.
                 </p>
             </div>
         </div>

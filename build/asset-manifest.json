@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/my-website/static/css/main.14f55a5f.css",
-    "main.js": "/my-website/static/js/main.5b984b6b.js",
+    "main.css": "/my-website/static/css/main.f402f84b.css",
+    "main.js": "/my-website/static/js/main.1e26b93a.js",
     "static/js/453.b05d8aa5.chunk.js": "/my-website/static/js/453.b05d8aa5.chunk.js",
-    "static/media/mock10.png": "/my-website/static/media/mock10.2d05b02ba569a430a255.png",
-    "static/media/mock09.png": "/my-website/static/media/mock09.e18677ccfc932e52d754.png",
-    "static/media/mock08.png": "/my-website/static/media/mock08.13f46873fdbd382f4b76.png",
+    "static/media/mock08.png": "/my-website/static/media/mock08.1e207dc45c957d34d6d9.png",
     "static/media/bg-light.png": "/my-website/static/media/bg-light.bac0efb485244a522981.png",
-    "static/media/mock07.png": "/my-website/static/media/mock07.3f1110f482232b33c6a2.png",
     "static/media/bg-dark.png": "/my-website/static/media/bg-dark.f420c6b8458af72de935.png",
+    "static/media/TimPham.png": "/my-website/static/media/TimPham.7066f75a13f6d4d574dc.png",
+    "static/media/mock07.png": "/my-website/static/media/mock07.f52fc8b3594fc96711fc.png",
+    "static/media/Project1.png": "/my-website/static/media/Project1.eec93817c8ae4fb0c074.png",
     "index.html": "/my-website/index.html",
-    "main.14f55a5f.css.map": "/my-website/static/css/main.14f55a5f.css.map",
-    "main.5b984b6b.js.map": "/my-website/static/js/main.5b984b6b.js.map",
+    "main.f402f84b.css.map": "/my-website/static/css/main.f402f84b.css.map",
+    "main.1e26b93a.js.map": "/my-website/static/js/main.1e26b93a.js.map",
     "453.b05d8aa5.chunk.js.map": "/my-website/static/js/453.b05d8aa5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.14f55a5f.css",
-    "static/js/main.5b984b6b.js"
+    "static/css/main.f402f84b.css",
+    "static/js/main.1e26b93a.js"
   ]
 }
