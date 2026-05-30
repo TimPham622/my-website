@@ -6,7 +6,7 @@
   --site-muted: #c9c9c9;
   --site-border: rgba(255, 255, 255, 0.18);
   --site-frame: rgba(255, 255, 255, 0.22);
-  --site-nav: #050505;
+  --site-nav: rgba(5, 5, 5, 0.92);
   --site-nav-text: #ffffff;
 }
 
@@ -90,8 +90,6 @@ h1 {
 
 .navbar-fixed-top {
   z-index: 2000 !important;
-  background: var(--site-nav) !important;
-  color: var(--site-nav-text) !important;
   pointer-events: auto;
 }
 
@@ -99,7 +97,7 @@ h1 {
   justify-content: space-between;
   border-bottom: 1px solid var(--site-border);
   background: var(--site-nav);
-  color: var(--site-nav-text);
+  backdrop-filter: blur(18px);
   pointer-events: auto;
 
   button {
@@ -127,7 +125,7 @@ h1 {
 }
 
 .navbar-fixed-top.scrolled .navigation-bar {
-  background: #000000 !important;
+  background: rgba(0, 0, 0, 0.96);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
 }
 
@@ -251,7 +249,7 @@ h1 {
   --site-muted: #454545;
   --site-border: rgba(0, 0, 0, 0.16);
   --site-frame: rgba(0, 0, 0, 0.18);
-  --site-nav: #ffffff;
+  --site-nav: rgba(255, 255, 255, 0.95);
   --site-nav-text: #111111;
 
   .navigation-bar button:hover,

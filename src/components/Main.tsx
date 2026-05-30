@@ -27,6 +27,7 @@ function Main() {
             <img key={scene.label} src={scene.src} alt="" />
           ))}
         </div>
+        <div className="film-grain" aria-hidden="true" />
         <div className="image-wrapper">
           <img src={Tim} alt="Avatar" />
         </div>

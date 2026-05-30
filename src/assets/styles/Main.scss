@@ -31,6 +31,78 @@
 .about-section::after {
     z-index: 1;
     background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px) 0 0 / 12.5vw 100%,
+        linear-gradient(180deg, transparent 48%, rgba(0, 0, 0, 0.62) 100%);
+}
+
+.hero-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #050505;
+}
+
+.hero-slideshow img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: scene-slideshow 25s infinite;
+}
+
+.hero-slideshow img:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.hero-slideshow img:nth-child(2) {
+    animation-delay: 5s;
+}
+
+.hero-slideshow img:nth-child(3) {
+    animation-delay: 10s;
+}
+
+.hero-slideshow img:nth-child(4) {
+    animation-delay: 15s;
+}
+
+.hero-slideshow img:nth-child(5) {
+    animation-delay: 20s;
+}
+
+.film-grain {
+    position: absolute;
+    inset: -40%;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0, 0, 0, 0.14) 1px, transparent 1px);
+    background-position: 0 0, 7px 11px;
+    background-size: 19px 19px, 23px 23px;
+    opacity: 0.2;
+    animation: grain-shift 0.9s steps(2) infinite;
+}
+
+.about-section::before,
+.about-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.about-section::before {
+    z-index: 1;
+    border: clamp(10px, 1.8vw, 24px) solid rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.36), inset 0 0 90px rgba(0, 0, 0, 0.5);
+}
+
+.about-section::after {
+    z-index: 1;
+    background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px) 0 0 / 12.5vw 100%;
 }
 
@@ -80,6 +152,9 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 26px;
     text-align: left;
+    background: rgba(0, 0, 0, 0.34);
+    text-align: left;
+    backdrop-filter: blur(5px);
 
     .social_icons {
         display: flex;
@@ -102,6 +177,7 @@
         padding: 7px 13px;
         border: 1px solid rgba(255, 255, 255, 0.48);
         border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
         color: white !important;
         font-size: 0.86rem;
         font-weight: 800;
@@ -169,12 +245,34 @@
     }
 
     20%, 100% {
+    0% {
+        opacity: 0;
+    }
+
+    4%, 18% {
+        opacity: 1;
+    }
+
+    22%, 100% {
         opacity: 0;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .hero-slideshow img {
+@keyframes grain-shift {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(14px, -10px, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slideshow img,
+    .film-grain {
         animation: none;
     }
 
