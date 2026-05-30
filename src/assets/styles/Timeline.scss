@@ -36,3 +36,14 @@
         color: rgb(39, 40, 34);
     }
 }
+.vertical-timeline-element-content {
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 22px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18) !important;
+}
+
+.vertical-timeline-element-icon {
+    background: #111827 !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.72), inset 0 2px 0 rgba(255, 255, 255, 0.28), 0 0 0 9px rgba(0, 0, 0, 0.16) !important;
+}
