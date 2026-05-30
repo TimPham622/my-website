@@ -94,7 +94,7 @@ function Navigation({parentToChild, modeChange}: any) {
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box className="navigation-shell" sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav" id="navigation" className={`navbar-fixed-top${scrolled ? ' scrolled' : ''}`}>
         <Toolbar className='navigation-bar'>
