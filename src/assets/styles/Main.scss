@@ -86,6 +86,64 @@
     animation: grain-shift 0.9s steps(2) infinite;
 }
 
+.about-section::before,
+.about-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.about-section::before {
+    z-index: 1;
+    border: clamp(10px, 1.8vw, 24px) solid rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.36), inset 0 0 90px rgba(0, 0, 0, 0.5);
+}
+
+.about-section::after {
+    z-index: 1;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px) 0 0 / 12.5vw 100%;
+}
+
+.hero-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #050505;
+}
+
+.hero-slideshow img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: scene-slideshow 25s infinite;
+}
+
+.hero-slideshow img:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.hero-slideshow img:nth-child(2) {
+    animation-delay: 5s;
+}
+
+.hero-slideshow img:nth-child(3) {
+    animation-delay: 10s;
+}
+
+.hero-slideshow img:nth-child(4) {
+    animation-delay: 15s;
+}
+
+.hero-slideshow img:nth-child(5) {
+    animation-delay: 20s;
+}
+
+
 .about-section .content {
     position: relative;
     z-index: 2;
@@ -93,6 +151,7 @@
     padding: clamp(20px, 3vw, 34px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 26px;
+    text-align: left;
     background: rgba(0, 0, 0, 0.34);
     text-align: left;
     backdrop-filter: blur(5px);
@@ -181,6 +240,11 @@
 }
 
 @keyframes scene-slideshow {
+    0%, 19.99% {
+        opacity: 1;
+    }
+
+    20%, 100% {
     0% {
         opacity: 0;
     }
@@ -194,6 +258,8 @@
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .hero-slideshow img {
 @keyframes grain-shift {
     0% {
         transform: translate3d(0, 0, 0);
