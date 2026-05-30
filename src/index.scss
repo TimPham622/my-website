@@ -93,17 +93,25 @@ h1 {
 
 .navbar-fixed-top {
   position: fixed !important;
+  top: 0;
+  right: 0;
+  left: 0;
   z-index: 5000 !important;
+  background: var(--site-nav) !important;
+  color: var(--site-nav-text) !important;
   pointer-events: auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
 .navigation-bar {
+  min-height: 72px;
   justify-content: space-between;
   border-bottom: 1px solid var(--site-border);
   background: var(--site-nav);
   pointer-events: auto;
 
-  button {
+  button,
+  a.MuiButton-root {
     position: relative;
     z-index: 1;
     padding: 8px 12px;
@@ -115,7 +123,9 @@ h1 {
   }
 
   button:hover,
-  button:focus-visible {
+  button:focus-visible,
+  a.MuiButton-root:hover,
+  a.MuiButton-root:focus-visible {
     background: rgba(255, 255, 255, 0.16);
     outline: 2px solid rgba(255, 255, 255, 0.55);
     outline-offset: 2px;

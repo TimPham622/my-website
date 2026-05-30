@@ -17,7 +17,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 
 const drawerWidth = 240;
-const navItems = [['About me', 'about-me'], ['My Life', 'history'], ['Projects', 'projects'], ['Music', 'music'], ['Movies', 'movies']];
+const NAV_OFFSET = 78;
+
+type NavItem = {
+  label: string;
+  section: string;
+};
+
+const navItems: NavItem[] = [
+  { label: 'About me', section: 'about-me' },
+  { label: 'My Life', section: 'history' },
+  { label: 'Projects', section: 'projects' },
+  { label: 'Music', section: 'music' },
+  { label: 'Movies', section: 'movies' },
+];
 
 function Navigation({parentToChild, modeChange}: any) {
 
@@ -50,7 +63,9 @@ function Navigation({parentToChild, modeChange}: any) {
     const sectionElement = document.getElementById(section);
 
     if (sectionElement) {
-      sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const yOffset = sectionElement.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+      window.scrollTo({ top: yOffset, behavior: 'smooth' });
+      window.history.replaceState(null, '', `#${section}`);
     }
   };
 
@@ -60,9 +75,17 @@ function Navigation({parentToChild, modeChange}: any) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item[0]} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => scrollToSection(item[1])}>
-              <ListItemText primary={item[0]} />
+          <ListItem key={item.section} disablePadding>
+            <ListItemButton
+              component="a"
+              href={`#${item.section}`}
+              sx={{ textAlign: 'center' }}
+              onClick={(event) => {
+                event.preventDefault();
+                scrollToSection(item.section);
+              }}
+            >
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -94,8 +117,15 @@ function Navigation({parentToChild, modeChange}: any) {
           </IconButton>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item[0]} onClick={() => scrollToSection(item[1])} sx={{ color: '#fff' }}>
-                {item[0]}
+              <Button
+                key={item.section}
+                href={`#${item.section}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToSection(item.section);
+                }}
+              >
+                {item.label}
               </Button>
             ))}
           </Box>
