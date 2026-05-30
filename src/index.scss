@@ -64,6 +64,17 @@ code {
   z-index: 1;
 }
 
+.navigation-shell {
+  position: relative;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.navigation-shell .navbar-fixed-top,
+.navigation-shell nav {
+  pointer-events: auto;
+}
+
 a {
   color: var(--site-text);
   text-decoration: none;
@@ -96,7 +107,7 @@ h1 {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 5000 !important;
+  z-index: 11000 !important;
   background: var(--site-nav) !important;
   color: var(--site-nav-text) !important;
   pointer-events: auto;
