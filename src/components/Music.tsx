@@ -88,56 +88,56 @@ const recommendedAlbums: RecommendedAlbum[] = [
     {
         title: "Give Up",
         artist: "The Postal Service",
-        mood: "Tiny electronic heartbreak with massive hooks.",
-        spotifyUrl: "https://open.spotify.com/search/album%3AGive%20Up%20artist%3AThe%20Postal%20Service/albums",
+        mood: "Glitchy electronic sounds, under a backdrop of rather pessimistic themes",
+        spotifyUrl: "https://open.spotify.com/album/1BSwkKATGVCMgNuN8ve7mz",
     },
     {
         title: "Discovery",
         artist: "Daft Punk",
-        mood: "Glossy, joyful dance music that still sounds futuristic.",
+        mood: "Dance music perfection",
         spotifyUrl: "https://open.spotify.com/album/2noRn2Aes5aoNVsU6iWThc",
     },
     {
         title: "Modern Vampires of the City",
         artist: "Vampire Weekend",
-        mood: "Brainy indie pop with existential Sunday-afternoon energy.",
+        mood: "A fun indie pop album, with everything feeling studious and creative.",
         spotifyUrl: "https://open.spotify.com/album/2Qi2SySN2ePZwMLDSv9Krn",
     },
     {
         title: "To See the Next Part of the Dream",
         artist: "Parannoul",
-        mood: "Blown-out bedroom shoegaze for big feelings.",
-        spotifyUrl: "https://open.spotify.com/search/album%3ATo%20See%20the%20Next%20Part%20of%20the%20Dream%20artist%3AParannoul/albums",
+        mood: "My favourite album cover, whilst having some hazy Korean-shoegaze sounds",
+        spotifyUrl: "https://open.spotify.com/album/5IyHtkKQvafw7bQYFnx4FO",
     },
     {
         title: "A Brief Inquiry Into Online Relationships",
         artist: "The 1975",
-        mood: "Messy internet-age pop maximalism with a soft heart.",
-        spotifyUrl: "https://open.spotify.com/search/album%3AA%20Brief%20Inquiry%20Into%20Online%20Relationships%20artist%3AThe%201975/albums",
+        mood: "Pop maximalism",
+        spotifyUrl: "https://open.spotify.com/album/6eeQNgCWx0t3vDPCYSxp7I",
     },
     {
         title: "Sound of Silver",
         artist: "LCD Soundsystem",
-        mood: "Dance-punk catharsis for staying up too late.",
+        mood: "Where are your friends tonight?",
         spotifyUrl: "https://open.spotify.com/album/1R8kkopLT4IAxzMMkjic6X",
     },
     {
         title: "American Football",
         artist: "American Football",
-        mood: "Twinkly emo that turns quiet memories cinematic.",
-        spotifyUrl: "https://open.spotify.com/search/album%3AAmerican%20Football%20artist%3AAmerican%20Football/albums",
+        mood: "An autumn album, with the most emo sounds",
+        spotifyUrl: "https://open.spotify.com/album/70OkRXiiwdTCtZ9YiPBzPp",
     },
     {
         title: "Take Care",
         artist: "Drake",
-        mood: "Nocturnal rap and R&B with winter-city drama.",
-        spotifyUrl: "https://open.spotify.com/search/album%3ATake%20Care%20artist%3ADrake/albums",
+        mood: "A gem of its time all while handling what fame is like",
+        spotifyUrl: "https://open.spotify.com/album/6X1x82kppWZmDzlXXK3y3q",
     },
     {
         title: "For Lovers",
         artist: "Lamp",
-        mood: "Soft, breezy Japanese pop for a golden-hour walk.",
-        spotifyUrl: "https://open.spotify.com/search/album%3AFor%20Lovers%20artist%3ALamp/albums",
+        mood: "Simple and fun.",
+        spotifyUrl: "https://open.spotify.com/album/0gwS2D9sukMLXNvleEnYr2",
     },
     {
         title: "Transatlanticism",
@@ -342,9 +342,7 @@ function Music() {
                         <p className="eyebrow">Recommended listens</p>
                         <h2 id="recommended-albums-heading">Ten more albums to try</h2>
                     </div>
-                    <p>
-                        Smaller shelf notes for records I would hand to someone after the favourites above. Covers are pulled from Last.fm when the API key is available, so the page avoids shipping ten extra image assets.
-                    </p>
+
                 </div>
 
                 <div className="recommendations-grid">
