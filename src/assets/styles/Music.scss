@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    gap: 32px;
 }
 
 .music-container p {
@@ -12,12 +13,312 @@
     overflow-wrap: anywhere;
 }
 
+.music-container h2,
+.music-container h3 {
+    color: white;
+    font-family: "Lato", sans-serif;
+    margin: 0;
+}
+
+.eyebrow {
+    color: #9f7aea !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.listening-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+    gap: 32px;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(80, 0, 202, 0.18), rgba(255, 255, 255, 0.04));
+}
+
+.listening-copy {
+    margin-top: 12px !important;
+}
+
+.listening-player {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-radius: 20px;
+    padding: 18px;
+    background: rgba(13, 17, 22, 0.64);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.cd-shell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 132px;
+    min-width: 132px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.03) 55%, rgba(255, 255, 255, 0.16));
+}
+
+.spinning-cd {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 108px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 50%;
+    background: conic-gradient(from 90deg, #cfd8dc, #7e8a93, #f7fbff, #7e8a93, #cfd8dc);
+    animation: spin 6s linear infinite;
+}
+
+.spinning-cd::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    aspect-ratio: 1;
+    border: 6px solid rgba(13, 17, 22, 0.72);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.spinning-cd img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.spinning-cd span {
+    color: #0d1116;
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.track-details {
+    min-width: 0;
+}
+
+.status {
+    display: inline-flex;
+    margin-bottom: 8px;
+    color: #d7dce3;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.status-live {
+    color: #6ee7b7;
+}
+
+.track-details h3 {
+    font-size: 1.25rem;
+}
+
+.album-name {
+    color: #b7c0cc !important;
+    font-size: 0.95rem;
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.album-card {
+    position: relative;
+    min-height: 345px;
+    border: 0;
+    border-radius: 18px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    text-align: left;
+    transform-style: preserve-3d;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.album-card:hover,
+.album-card:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.32);
+    transform: translateY(-8px) rotate(-1deg);
+    outline: 2px solid var(--album-accent);
+    outline-offset: 3px;
+}
+
+.album-card.is-selected {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+    transform: translateY(-10px) rotateX(3deg);
+}
+
+.album-art {
+    position: relative;
+    display: grid;
+    place-items: end start;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 12px;
+    padding: 14px;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 34%),
+        radial-gradient(circle at 70% 25%, rgba(255, 255, 255, 0.28), transparent 28%),
+        linear-gradient(135deg, var(--album-accent), #111827);
+}
+
+.album-art::after {
+    content: "";
+    position: absolute;
+    inset: 14%;
+    border: 2px solid rgba(255, 255, 255, 0.24);
+    border-radius: 50%;
+}
+
+.album-art-title {
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.album-info,
+.album-thoughts {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-info {
+    margin-top: 14px;
+    gap: 4px;
+}
+
+.album-title {
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.album-artist {
+    color: #c5ccd6;
+    font-size: 0.95rem;
+}
+
+.album-thoughts {
+    max-height: 0;
+    margin-top: 0;
+    overflow: hidden;
+    color: #f4f7fb;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: rotateY(16deg) translateY(-6px);
+    transition: max-height 0.28s ease, margin-top 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
+}
+
+.album-card.is-selected .album-thoughts {
+    max-height: 180px;
+    margin-top: 16px;
+    opacity: 1;
+    transform: rotateY(0deg) translateY(0);
+}
+
+.back-label {
+    color: var(--album-accent);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.light-mode {
+    .music-container h2,
+    .music-container h3,
+    .album-title {
+        color: #0d1116;
+    }
+
+    .listening-section,
+    .album-card {
+        border-color: rgba(13, 17, 22, 0.1);
+        background: rgba(13, 17, 22, 0.04);
+    }
+
+    .listening-player {
+        background: rgba(255, 255, 255, 0.78);
+    }
+
+    .album-card:hover,
+    .album-card:focus-visible,
+    .album-card.is-selected {
+        background: rgba(13, 17, 22, 0.08);
+    }
+
+    .album-artist,
+    .album-thoughts,
+    .album-name,
+    .status {
+        color: #2d3748 !important;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 @media screen {
+    @media (max-width: 900px) {
+        .listening-section {
+            grid-template-columns: 1fr;
+        }
+
+        .albums-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
     @media (max-width: 768px) {
         .music-container {
             display: block;
             padding-left: 5%;
             padding-right: 5%;
+        }
+
+        .listening-section,
+        .favorite-albums {
+            margin-top: 32px;
+        }
+    }
+
+    @media (max-width: 540px) {
+        .listening-player {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .albums-grid {
+            gap: 12px;
+        }
+
+        .album-card {
+            min-height: 300px;
+            padding: 12px;
         }
     }
 }
