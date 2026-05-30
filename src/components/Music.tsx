@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import '../assets/styles/Music.scss';
+import nurtureCover from '../assets/images/nurture-album-cover.png';
+import redCover from '../assets/images/red-album-cover.jpg';
+import timeNPlaceCover from '../assets/images/time-n-place-album-cover.png';
+import melodramaCover from '../assets/images/melodrama-album-cover.jpg';
 
 type Album = {
     title: string;
     artist: string;
     accent: string;
+    cover: string;
     thoughts: string;
 };
 
@@ -38,24 +43,28 @@ const favoriteAlbums: Album[] = [
         title: "Nurture",
         artist: "Porter Robinson",
         accent: "#139220",
+        cover: nurtureCover,
         thoughts: "Placeholder thoughts: this album feels like sunlight breaking through after a long storm.",
     },
     {
         title: "Red",
         artist: "Taylor Swift",
         accent: "#ac1d45",
+        cover: redCover,
         thoughts: "Placeholder thoughts: a classic heart-on-sleeve record full of big feelings and sharper memories.",
     },
     {
         title: "Time 'n' Place",
         artist: "Kero Kero Bonito",
         accent: "#a135a5",
+        cover: timeNPlaceCover,
         thoughts: "Placeholder thoughts: playful, bittersweet, and packed with sounds that make growing up feel surreal.",
     },
     {
         title: "Melodrama",
         artist: "Lorde",
         accent: "#0638bc",
+        cover: melodramaCover,
         thoughts: "Placeholder thoughts: this is late-night pop drama with every emotion turned into neon.",
     },
 ];
@@ -179,8 +188,8 @@ function Music() {
                                 type="button"
                                 aria-expanded={isSelected}
                             >
-                                <span className="album-art" aria-hidden="true">
-                                    <span className="album-art-title">{album.title}</span>
+                                <span className="album-art">
+                                    <img src={album.cover} alt={`${album.title} album cover`} />
                                 </span>
                                 <span className="album-info">
                                     <span className="album-title">{album.title}</span>

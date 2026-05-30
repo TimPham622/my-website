@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "../assets/styles/movies.scss";
+import oceansElevenPoster from "../assets/images/oceans-eleven-poster.jpg";
+import socialNetworkPoster from "../assets/images/the-social-network-poster.jpg";
+import whisperOfTheHeartPoster from "../assets/images/whisper-of-the-heart-poster.jpg";
+import yourNamePoster from "../assets/images/your-name-poster.jpg";
 
 type Movie = {
     title: string;
     year: string;
     format: string;
-    palette: string;
+    poster: string;
     spine: string;
-    placeholderPoster: string;
     thoughts: string;
 };
 
@@ -16,36 +19,32 @@ const favoriteMovies: Movie[] = [
         title: "The Social Network",
         year: "2010",
         format: "DVD",
-        palette: "linear-gradient(135deg, #0f172a, #2563eb)",
+        poster: socialNetworkPoster,
         spine: "#2563eb",
-        placeholderPoster: "SN",
         thoughts: "Placeholder thoughts: sharp, restless, and endlessly rewatchable because every scene feels like a perfect argument.",
     },
     {
         title: "Whisper of the Heart",
         year: "1995",
         format: "VHS",
-        palette: "linear-gradient(135deg, #14532d, #fbbf24)",
+        poster: whisperOfTheHeartPoster,
         spine: "#16a34a",
-        placeholderPoster: "WH",
         thoughts: "Placeholder thoughts: a warm reminder to chase craft seriously while still leaving room for wonder.",
     },
     {
         title: "Your Name",
         year: "2016",
         format: "Blu-ray",
-        palette: "linear-gradient(135deg, #312e81, #fb7185)",
+        poster: yourNamePoster,
         spine: "#7c3aed",
-        placeholderPoster: "YN",
         thoughts: "Placeholder thoughts: romantic, cosmic, and emotionally huge in the way only a perfect sky can feel.",
     },
     {
         title: "Ocean's Eleven",
         year: "2001",
         format: "DVD",
-        palette: "linear-gradient(135deg, #7f1d1d, #f59e0b)",
+        poster: oceansElevenPoster,
         spine: "#dc2626",
-        placeholderPoster: "OE",
         thoughts: "Placeholder thoughts: pure confidence and charm, with the kind of ensemble energy that makes every rewatch easy.",
     },
 ];
@@ -99,13 +98,12 @@ function Movies() {
                     <button
                         className={`movie-case ${isFlipped ? "is-flipped" : ""}`}
                         onClick={handleFlip}
-                        style={{ "--movie-poster": selectedMovie.palette } as React.CSSProperties}
                         type="button"
                         aria-label={`Flip ${selectedMovie.title} case`}
                     >
                         <span className="movie-case-inner">
                             <span className="movie-case-face movie-case-front">
-                                <span className="movie-poster-art">{selectedMovie.placeholderPoster}</span>
+                                <img src={selectedMovie.poster} alt={`${selectedMovie.title} poster`} />
                                 <span className="movie-case-title">{selectedMovie.title}</span>
                                 <span className="movie-case-meta">{selectedMovie.year} • {selectedMovie.format}</span>
                             </span>
