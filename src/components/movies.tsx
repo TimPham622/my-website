@@ -83,10 +83,14 @@ function Movies() {
                                 className={`movie-shelf-card ${isSelected ? "is-selected" : ""}`}
                                 key={movie.title}
                                 onClick={() => handleSelectMovie(movie)}
-                                style={{ "--movie-spine": movie.spine } as React.CSSProperties}
+                                style={{
+                                    "--movie-spine": movie.spine,
+                                    "--movie-poster": `url(${movie.poster})`,
+                                } as React.CSSProperties}
                                 type="button"
                                 aria-pressed={isSelected}
                             >
+                                <span className="movie-rental-sticker">New arrival</span>
                                 <span className="movie-spine-label">{movie.title}</span>
                                 <span className="movie-format">{movie.format}</span>
                             </button>

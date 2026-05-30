@@ -47,13 +47,10 @@ function Navigation({parentToChild, modeChange}: any) {
   }, []);
 
   const scrollToSection = (section: string) => {
-    console.log(section)
-    const aboutMeElement = document.getElementById(section);
-    if (aboutMeElement) {
-      aboutMeElement.scrollIntoView({ behavior: 'smooth' });
-      console.log('Scrolling to:', aboutMeElement);  // Debugging: Ensure the element is found
-    } else {
-      console.error('Element with id "about-me" not found');  // Debugging: Log error if element is not found
+    const sectionElement = document.getElementById(section);
+
+    if (sectionElement) {
+      sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -87,11 +84,14 @@ function Navigation({parentToChild, modeChange}: any) {
           >
             <MenuIcon />
           </IconButton>
-          {mode === 'dark' ? (
-            <LightModeIcon onClick={() => modeChange()}/>
-          ) : (
-            <DarkModeIcon onClick={() => modeChange()}/>
-          )}
+          <IconButton
+            className="mode-toggle"
+            color="inherit"
+            aria-label={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}
+            onClick={() => modeChange()}
+          >
+            {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item[0]} onClick={() => scrollToSection(item[1])} sx={{ color: '#fff' }}>
