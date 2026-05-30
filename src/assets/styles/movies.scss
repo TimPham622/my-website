@@ -27,8 +27,12 @@
     border-radius: 24px;
     padding: 26px 22px 36px;
     overflow-x: auto;
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: inset 0 -18px 0 rgba(255, 255, 255, 0.12), 0 20px 42px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 18px),
+        #121014;
+    box-shadow: inset 0 -18px 0 rgba(109, 72, 39, 0.55), inset 0 -25px 0 rgba(255, 255, 255, 0.08), 0 20px 42px rgba(0, 0, 0, 0.2);
 }
 
 .movie-shelf::after {
@@ -39,7 +43,7 @@
     left: 18px;
     height: 18px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.16);
+    background: linear-gradient(90deg, rgba(84, 49, 25, 0.9), rgba(167, 113, 67, 0.72), rgba(84, 49, 25, 0.9));
 }
 
 .movie-shelf-card {
@@ -50,14 +54,43 @@
     flex-direction: column;
     justify-content: space-between;
     height: 285px;
-    border: 0;
+    border: 1px solid rgba(255, 255, 255, 0.24);
     border-radius: 10px 16px 16px 10px;
-    padding: 18px 12px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.32), transparent 18%), var(--movie-spine);
+    padding: 16px 12px;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent 16%, rgba(255, 255, 255, 0.18) 48%, transparent 64%),
+        linear-gradient(180deg, color-mix(in srgb, var(--movie-spine), white 18%), var(--movie-spine)),
+        var(--movie-poster);
+    background-size: cover;
     box-shadow: 10px 16px 28px rgba(0, 0, 0, 0.28);
     cursor: pointer;
     text-align: left;
     transition: transform 0.24s ease, box-shadow 0.24s ease, outline-color 0.24s ease;
+}
+
+.movie-shelf-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.38)),
+        var(--movie-poster);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.18;
+    filter: saturate(1.2) contrast(1.1);
+}
+
+.movie-shelf-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    width: 10px;
+    background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0 6px, transparent 6px 14px);
+    opacity: 0.46;
 }
 
 .movie-shelf-card:hover,
@@ -69,7 +102,24 @@
     outline-offset: 4px;
 }
 
+.movie-rental-sticker {
+    position: relative;
+    z-index: 1;
+    align-self: flex-end;
+    padding: 4px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #111111;
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transform: rotate(3deg);
+}
+
 .movie-spine-label {
+    position: relative;
+    z-index: 1;
     writing-mode: vertical-rl;
     color: white;
     font-size: 1.05rem;
@@ -80,6 +130,8 @@
 }
 
 .movie-format {
+    position: relative;
+    z-index: 1;
     color: rgba(255, 255, 255, 0.82);
     font-size: 0.78rem;
     font-weight: 800;
