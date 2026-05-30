@@ -27,7 +27,7 @@
     border-radius: 24px;
     padding: 26px 22px 36px;
     overflow-x: auto;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(80, 0, 202, 0.12));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(183, 101, 47, 0.16));
     box-shadow: inset 0 -18px 0 rgba(120, 53, 15, 0.5), 0 20px 42px rgba(0, 0, 0, 0.2);
 }
 
@@ -138,7 +138,7 @@
 }
 
 .movie-case-front {
-    background: #111827;
+    background: #3c1f12;
 }
 
 .movie-case-front::before {
@@ -160,7 +160,7 @@
 .movie-case-back {
     gap: 12px;
     justify-content: center;
-    background: linear-gradient(135deg, #111827, #312e81);
+    background: linear-gradient(135deg, #3c1f12, #7c3f1f);
     transform: rotateY(180deg);
 }
 
@@ -195,7 +195,7 @@
     }
 
     .movie-detail-panel > .movie-flip-hint {
-        color: #2d3748;
+        color: #3c1f12;
     }
 }
 

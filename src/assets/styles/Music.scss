@@ -21,7 +21,7 @@
 }
 
 .eyebrow {
-    color: #9f7aea !important;
+    color: #ffd089 !important;
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -36,7 +36,7 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     padding: 28px;
-    background: linear-gradient(135deg, rgba(80, 0, 202, 0.18), rgba(255, 255, 255, 0.04));
+    background: linear-gradient(135deg, rgba(183, 101, 47, 0.24), rgba(255, 255, 255, 0.04));
 }
 
 .listening-copy {
@@ -49,7 +49,7 @@
     align-items: center;
     border-radius: 20px;
     padding: 18px;
-    background: rgba(13, 17, 22, 0.64);
+    background: rgba(44, 20, 10, 0.68);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
 }
 
@@ -93,7 +93,7 @@
 }
 
 .spinning-cd span {
-    color: #0d1116;
+    color: #1c1008;
     font-size: 2.5rem;
     font-weight: 800;
 }
@@ -105,7 +105,7 @@
 .status {
     display: inline-flex;
     margin-bottom: 8px;
-    color: #d7dce3;
+    color: #ffe6bf;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -113,7 +113,7 @@
 }
 
 .status-live {
-    color: #6ee7b7;
+    color: #f0a64c;
 }
 
 .track-details h3 {
@@ -121,7 +121,7 @@
 }
 
 .album-name {
-    color: #b7c0cc !important;
+    color: #f4d4a6 !important;
     font-size: 0.95rem;
 }
 
@@ -170,7 +170,7 @@
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 12px;
-    background: linear-gradient(135deg, var(--album-accent), #111827);
+    background: linear-gradient(135deg, var(--album-accent), #3c1f12);
 }
 
 .album-art img {
@@ -198,7 +198,7 @@
 }
 
 .album-artist {
-    color: #c5ccd6;
+    color: #f4d4a6;
     font-size: 0.95rem;
 }
 
@@ -206,7 +206,7 @@
     max-height: 0;
     margin-top: 0;
     overflow: hidden;
-    color: #f4f7fb;
+    color: #fff4dd;
     font-size: 0.95rem;
     line-height: 1.6;
     opacity: 0;
@@ -233,7 +233,7 @@
     .music-container h2,
     .music-container h3,
     .album-title {
-        color: #0d1116;
+        color: #1c1008;
     }
 
     .listening-section,
@@ -256,7 +256,7 @@
     .album-thoughts,
     .album-name,
     .status {
-        color: #2d3748 !important;
+        color: #3c1f12 !important;
     }
 }
 
