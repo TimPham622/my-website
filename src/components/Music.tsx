@@ -37,25 +37,25 @@ const favoriteAlbums: Album[] = [
     {
         title: "Nurture",
         artist: "Porter Robinson",
-        accent: "#80c7de",
+        accent: "#139220",
         thoughts: "Placeholder thoughts: this album feels like sunlight breaking through after a long storm.",
     },
     {
         title: "Red",
         artist: "Taylor Swift",
-        accent: "#b31f2d",
+        accent: "#ac1d45",
         thoughts: "Placeholder thoughts: a classic heart-on-sleeve record full of big feelings and sharper memories.",
     },
     {
         title: "Time 'n' Place",
         artist: "Kero Kero Bonito",
-        accent: "#f6bb44",
+        accent: "#a135a5",
         thoughts: "Placeholder thoughts: playful, bittersweet, and packed with sounds that make growing up feel surreal.",
     },
     {
         title: "Melodrama",
         artist: "Lorde",
-        accent: "#4d54ac",
+        accent: "#0638bc",
         thoughts: "Placeholder thoughts: this is late-night pop drama with every emotion turned into neon.",
     },
 ];
@@ -135,8 +135,7 @@ function Music() {
                     <p className="eyebrow">On repeat</p>
                     <h2 id="listening-heading">What I am currently listening to right now</h2>
                     <p className="listening-copy">
-                        This is ready to pull from Last.fm. Add your Last.fm username and API key as environment variables to swap this placeholder
-                        for your latest track.
+                    If you also listen to this song, maybe you and I are more alike than you think!
                     </p>
                 </div>
 
