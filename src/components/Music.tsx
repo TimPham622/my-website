@@ -13,6 +13,18 @@ type Album = {
     thoughts: string;
 };
 
+type RecommendedAlbum = {
+    title: string;
+    artist: string;
+    mood: string;
+    spotifyUrl: string;
+};
+
+type LastFmImage = {
+    size: string;
+    "#text": string;
+};
+
 type LastFmTrack = {
     name: string;
     artist: {
@@ -21,12 +33,15 @@ type LastFmTrack = {
     album?: {
         "#text": string;
     };
-    image?: Array<{
-        size: string;
-        "#text": string;
-    }>;
+    image?: LastFmImage[];
     "@attr"?: {
         nowplaying?: string;
+    };
+};
+
+type LastFmAlbum = {
+    album?: {
+        image?: LastFmImage[];
     };
 };
 
@@ -69,6 +84,69 @@ const favoriteAlbums: Album[] = [
     },
 ];
 
+const recommendedAlbums: RecommendedAlbum[] = [
+    {
+        title: "Give Up",
+        artist: "The Postal Service",
+        mood: "Glitchy electronic sounds, under a backdrop of rather pessimistic themes",
+        spotifyUrl: "https://open.spotify.com/album/1BSwkKATGVCMgNuN8ve7mz",
+    },
+    {
+        title: "Discovery",
+        artist: "Daft Punk",
+        mood: "Dance music perfection",
+        spotifyUrl: "https://open.spotify.com/album/2noRn2Aes5aoNVsU6iWThc",
+    },
+    {
+        title: "Modern Vampires of the City",
+        artist: "Vampire Weekend",
+        mood: "A fun indie pop album, with everything feeling studious and creative.",
+        spotifyUrl: "https://open.spotify.com/album/2Qi2SySN2ePZwMLDSv9Krn",
+    },
+    {
+        title: "To See the Next Part of the Dream",
+        artist: "Parannoul",
+        mood: "My favourite album cover, whilst having some hazy Korean-shoegaze sounds",
+        spotifyUrl: "https://open.spotify.com/album/5IyHtkKQvafw7bQYFnx4FO",
+    },
+    {
+        title: "A Brief Inquiry Into Online Relationships",
+        artist: "The 1975",
+        mood: "Pop maximalism",
+        spotifyUrl: "https://open.spotify.com/album/6eeQNgCWx0t3vDPCYSxp7I",
+    },
+    {
+        title: "Sound of Silver",
+        artist: "LCD Soundsystem",
+        mood: "Where are your friends tonight?",
+        spotifyUrl: "https://open.spotify.com/album/1R8kkopLT4IAxzMMkjic6X",
+    },
+    {
+        title: "American Football",
+        artist: "American Football",
+        mood: "An autumn album, with the most emo sounds",
+        spotifyUrl: "https://open.spotify.com/album/70OkRXiiwdTCtZ9YiPBzPp",
+    },
+    {
+        title: "Take Care",
+        artist: "Drake",
+        mood: "A gem of its time all while handling what fame is like",
+        spotifyUrl: "https://open.spotify.com/album/6X1x82kppWZmDzlXXK3y3q",
+    },
+    {
+        title: "For Lovers",
+        artist: "Lamp",
+        mood: "Simple and fun.",
+        spotifyUrl: "https://open.spotify.com/album/0gwS2D9sukMLXNvleEnYr2",
+    },
+    {
+        title: "Transatlanticism",
+        artist: "Death Cab for Cutie",
+        mood: "Long-distance longing stretched into a classic indie record.",
+        spotifyUrl: "https://open.spotify.com/album/5XGQ4L4XsTI3uIZiAfeAum",
+    },
+];
+
 const fallbackTrack: ListeningTrack = {
     title: "Currently listening placeholder",
     artist: "Last.fm ready",
@@ -77,13 +155,24 @@ const fallbackTrack: ListeningTrack = {
     isNowPlaying: false,
 };
 
-function getLargestImage(track: LastFmTrack) {
-    return track.image?.slice().reverse().find((image) => image["#text"])?.["#text"] || "";
+function getLargestImage(images?: LastFmImage[]) {
+    return images?.slice().reverse().find((image) => image["#text"])?.["#text"] || "";
+}
+
+function buildLastFmUrl(params: Record<string, string>) {
+    const lastFmUrl = new URL("https://ws.audioscrobbler.com/2.0/");
+    lastFmUrl.search = new URLSearchParams({
+        ...params,
+        format: "json",
+    }).toString();
+
+    return lastFmUrl.toString();
 }
 
 function Music() {
     const [selectedAlbum, setSelectedAlbum] = useState<string | null>(favoriteAlbums[0].title);
     const [listeningTrack, setListeningTrack] = useState<ListeningTrack>(fallbackTrack);
+    const [recommendedCovers, setRecommendedCovers] = useState<Record<string, string>>({});
 
     useEffect(() => {
         const username = process.env.REACT_APP_LASTFM_USERNAME;
@@ -94,16 +183,14 @@ function Music() {
         }
 
         const controller = new AbortController();
-        const lastFmUrl = new URL("https://ws.audioscrobbler.com/2.0/");
-        lastFmUrl.search = new URLSearchParams({
+        const lastFmUrl = buildLastFmUrl({
             method: "user.getrecenttracks",
             user: username,
             api_key: apiKey,
-            format: "json",
             limit: "1",
-        }).toString();
+        });
 
-        fetch(lastFmUrl.toString(), { signal: controller.signal })
+        fetch(lastFmUrl, { signal: controller.signal })
             .then((response) => response.json())
             .then((data) => {
                 const track: LastFmTrack | undefined = data?.recenttracks?.track?.[0];
@@ -116,13 +203,57 @@ function Music() {
                     title: track.name,
                     artist: track.artist?.["#text"] || "Unknown artist",
                     album: track.album?.["#text"] || "Recent track",
-                    cover: getLargestImage(track),
+                    cover: getLargestImage(track.image),
                     isNowPlaying: track["@attr"]?.nowplaying === "true",
                 });
             })
             .catch((error) => {
                 if (error.name !== "AbortError") {
                     console.error("Unable to load Last.fm listening data", error);
+                }
+            });
+
+        return () => controller.abort();
+    }, []);
+
+    useEffect(() => {
+        const apiKey = process.env.REACT_APP_LASTFM_API_KEY;
+
+        if (!apiKey) {
+            return;
+        }
+
+        const controller = new AbortController();
+
+        Promise.all(
+            recommendedAlbums.map((album) => {
+                const lastFmUrl = buildLastFmUrl({
+                    method: "album.getinfo",
+                    artist: album.artist,
+                    album: album.title,
+                    api_key: apiKey,
+                    autocorrect: "1",
+                });
+
+                return fetch(lastFmUrl, { signal: controller.signal })
+                    .then((response) => response.json())
+                    .then((data: LastFmAlbum) => [album.title, getLargestImage(data.album?.image)] as const);
+            })
+        )
+            .then((covers) => {
+                setRecommendedCovers(
+                    covers.reduce<Record<string, string>>((albumCovers, [title, cover]) => {
+                        if (cover) {
+                            albumCovers[title] = cover;
+                        }
+
+                        return albumCovers;
+                    }, {})
+                );
+            })
+            .catch((error) => {
+                if (error.name !== "AbortError") {
+                    console.error("Unable to load Last.fm album covers", error);
                 }
             });
 
@@ -200,6 +331,46 @@ function Music() {
                                     {album.thoughts}
                                 </span>
                             </button>
+                        );
+                    })}
+                </div>
+            </section>
+
+            <section className="recommended-albums" aria-labelledby="recommended-albums-heading">
+                <div className="section-heading recommended-heading">
+                    <div>
+                        <p className="eyebrow">Recommended listens</p>
+                        <h2 id="recommended-albums-heading">Ten more albums to try</h2>
+                    </div>
+
+                </div>
+
+                <div className="recommendations-grid">
+                    {recommendedAlbums.map((album) => {
+                        const cover = recommendedCovers[album.title];
+
+                        return (
+                            <a
+                                className="recommendation-card"
+                                href={album.spotifyUrl}
+                                key={`${album.title}-${album.artist}`}
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                <span className="recommendation-art" aria-hidden={!cover}>
+                                    {cover ? (
+                                        <img src={cover} alt={`${album.title} album cover`} loading="lazy" />
+                                    ) : (
+                                        <span>{album.title.charAt(0)}</span>
+                                    )}
+                                </span>
+                                <span className="recommendation-copy">
+                                    <span className="recommendation-title">{album.title}</span>
+                                    <span className="recommendation-artist">{album.artist}</span>
+                                    <span className="recommendation-mood">{album.mood}</span>
+                                    <span className="spotify-link">Find on Spotify ↗</span>
+                                </span>
+                            </a>
                         );
                     })}
                 </div>
