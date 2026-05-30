@@ -1,29 +1,32 @@
 {
   "files": {
-    "main.css": "/my-website/static/css/main.01507d62.css",
-    "main.js": "/my-website/static/js/main.a126edb3.js",
+    "main.css": "/my-website/static/css/main.58825e40.css",
+    "main.js": "/my-website/static/js/main.34ab6824.js",
     "static/js/453.b05d8aa5.chunk.js": "/my-website/static/js/453.b05d8aa5.chunk.js",
     "static/media/melodrama-album-cover.jpg": "/my-website/static/media/melodrama-album-cover.d8bc3a20016e736714e5.jpg",
     "static/media/time-n-place-album-cover.png": "/my-website/static/media/time-n-place-album-cover.cbfd5efb1ced7546118a.png",
     "static/media/nurture-album-cover.png": "/my-website/static/media/nurture-album-cover.b291f22262aa0e637066.png",
     "static/media/academy-awards-predictor.png": "/my-website/static/media/academy-awards-predictor.1e207dc45c957d34d6d9.png",
     "static/media/whisper-of-the-heart-poster.jpg": "/my-website/static/media/whisper-of-the-heart-poster.f59035d61b39380ad4ff.jpg",
+    "static/media/yi-yi.jpg": "/my-website/static/media/yi-yi.da2b376be7fc4ea4e603.jpg",
     "static/media/your-name-poster.jpg": "/my-website/static/media/your-name-poster.52b132350e53f050a5ce.jpg",
     "static/media/oceans-eleven-poster.jpg": "/my-website/static/media/oceans-eleven-poster.b772fb22111909ec22a2.jpg",
+    "static/media/wall-e.jpg": "/my-website/static/media/wall-e.2acc4182c75b60156ca5.jpg",
+    "static/media/chungking-express.jpg": "/my-website/static/media/chungking-express.ce1ec58bfc10cfb8beaa.jpg",
     "static/media/red-album-cover.jpg": "/my-website/static/media/red-album-cover.6d5ab7bed0ff278f5430.jpg",
-    "static/media/light-background.png": "/my-website/static/media/light-background.bac0efb485244a522981.png",
-    "static/media/dark-background.png": "/my-website/static/media/dark-background.f420c6b8458af72de935.png",
+    "static/media/your-name-big.jpg": "/my-website/static/media/your-name-big.dc2731ddcfc83e9b9806.jpg",
+    "static/media/la-haine.jpeg": "/my-website/static/media/la-haine.57d41988940da59febaf.jpeg",
     "static/media/tim-pham.png": "/my-website/static/media/tim-pham.7066f75a13f6d4d574dc.png",
     "static/media/the-social-network-poster.jpg": "/my-website/static/media/the-social-network-poster.c856e4aadf902f89ce12.jpg",
     "static/media/susquehanna-algothon.png": "/my-website/static/media/susquehanna-algothon.f52fc8b3594fc96711fc.png",
     "static/media/fourier-playground.png": "/my-website/static/media/fourier-playground.eec93817c8ae4fb0c074.png",
     "index.html": "/my-website/index.html",
-    "main.01507d62.css.map": "/my-website/static/css/main.01507d62.css.map",
-    "main.a126edb3.js.map": "/my-website/static/js/main.a126edb3.js.map",
+    "main.58825e40.css.map": "/my-website/static/css/main.58825e40.css.map",
+    "main.34ab6824.js.map": "/my-website/static/js/main.34ab6824.js.map",
     "453.b05d8aa5.chunk.js.map": "/my-website/static/js/453.b05d8aa5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.01507d62.css",
-    "static/js/main.a126edb3.js"
+    "static/css/main.58825e40.css",
+    "static/js/main.34ab6824.js"
   ]
 }
