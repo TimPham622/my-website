@@ -53,6 +53,20 @@ type ListeningTrack = {
     isNowPlaying: boolean;
 };
 
+type LastFmWeeklyTrack = {
+    name: string;
+    artist?: {
+        "#text"?: string;
+    };
+    playcount?: string;
+};
+
+type TopTrack = {
+    title: string;
+    artist: string;
+    playCount: number;
+};
+
 const favoriteAlbums: Album[] = [
     {
         title: "Nurture",
@@ -155,6 +169,8 @@ const fallbackTrack: ListeningTrack = {
     isNowPlaying: false,
 };
 
+const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+
 function getLargestImage(images?: LastFmImage[]) {
     return images?.slice().reverse().find((image) => image["#text"])?.["#text"] || "";
 }
@@ -172,6 +188,8 @@ function buildLastFmUrl(params: Record<string, string>) {
 function Music() {
     const [selectedAlbum, setSelectedAlbum] = useState<string | null>(favoriteAlbums[0].title);
     const [listeningTrack, setListeningTrack] = useState<ListeningTrack>(fallbackTrack);
+    const [topTracks, setTopTracks] = useState<TopTrack[]>([]);
+    const [topTracksMessage, setTopTracksMessage] = useState<string>("Loading your 90-day chart...");
     const [recommendedCovers, setRecommendedCovers] = useState<Record<string, string>>({});
 
     useEffect(() => {
@@ -210,6 +228,53 @@ function Music() {
             .catch((error) => {
                 if (error.name !== "AbortError") {
                     console.error("Unable to load Last.fm listening data", error);
+                }
+            });
+
+        return () => controller.abort();
+    }, []);
+
+
+    useEffect(() => {
+        const username = process.env.REACT_APP_LASTFM_USERNAME;
+        const apiKey = process.env.REACT_APP_LASTFM_API_KEY;
+
+        if (!username || !apiKey) {
+            setTopTracksMessage("Connect Last.fm to see your 90-day chart.");
+            return;
+        }
+
+        const controller = new AbortController();
+        const now = Math.floor(Date.now() / 1000);
+        const lastFmUrl = buildLastFmUrl({
+            method: "user.getweeklytrackchart",
+            user: username,
+            api_key: apiKey,
+            from: String(now - ninetyDaysInSeconds),
+            to: String(now),
+        });
+
+        fetch(lastFmUrl, { signal: controller.signal })
+            .then((response) => response.json())
+            .then((data) => {
+                const tracks: LastFmWeeklyTrack[] = data?.weeklytrackchart?.track || [];
+                const normalizedTracks = tracks
+                    .map((track) => ({
+                        title: track.name,
+                        artist: track.artist?.["#text"] || "Unknown artist",
+                        playCount: Number(track.playcount || 0),
+                    }))
+                    .filter((track) => track.title && track.playCount > 0)
+                    .sort((trackA, trackB) => trackB.playCount - trackA.playCount)
+                    .slice(0, 5);
+
+                setTopTracks(normalizedTracks);
+                setTopTracksMessage(normalizedTracks.length ? "" : "No scrobbles found in the past 90 days.");
+            })
+            .catch((error) => {
+                if (error.name !== "AbortError") {
+                    setTopTracksMessage("Unable to load your 90-day chart right now.");
+                    console.error("Unable to load Last.fm top tracks", error);
                 }
             });
 
@@ -263,42 +328,79 @@ function Music() {
     return (
         <div className="music-container" id="music">
             <h1>Music</h1>
-            <p>
-                Music is the most treasured part of my life. It's primarily the stream on how I get creative. Ever since high school,
-                I have been deeply interested in discovering new music from a wild range of artists, where I used to do a project where
-                I tried to listen to a new album every day for around 3-4 years, and it was amazing, Below are music recommendations I 
-                have for you, where I believed it has defined who I am.
-            </p>
 
-            <section className="listening-section" aria-labelledby="listening-heading">
-                <div>
-                    <p className="eyebrow">On repeat</p>
-                    <h2 id="listening-heading">What I am currently listening to right now</h2>
-                    <p className="listening-copy">
-                    If you also listen to this song, maybe you and I are more alike than you think!
+            <div className="music-intro-grid">
+                <section className="music-blurb-card" aria-labelledby="music-blurb-heading">
+                    <p className="eyebrow">Why music matters</p>
+                    <h2 id="music-blurb-heading">A stream for getting creative</h2>
+                    <p>
+                        Music is the most treasured part of my life. It's primarily the stream on how I get creative. Ever since high school,
+                        I have been deeply interested in discovering new music from a wild range of artists, where I used to do a project where
+                        I tried to listen to a new album every day for around 3-4 years, and it was amazing. Below are music recommendations I
+                        have for you, where I believe it has defined who I am.
                     </p>
-                </div>
+                </section>
 
-                <div className="listening-player" aria-live="polite">
-                    <div className="cd-shell">
-                        <div className="spinning-cd">
-                            {listeningTrack.cover ? (
-                                <img src={listeningTrack.cover} alt={`${listeningTrack.album} cover`} />
-                            ) : (
-                                <span>♪</span>
-                            )}
+                <section className="listening-section" aria-labelledby="listening-heading">
+                    <div>
+                        <p className="eyebrow">On repeat</p>
+                        <h2 id="listening-heading">What I am listening to right now</h2>
+                        <p className="listening-copy">
+                            If you also listen to this song, maybe you and I are more alike than you think!
+                        </p>
+                    </div>
+
+                    <div className="listening-player" aria-live="polite">
+                        <div className="cd-shell">
+                            <div className="spinning-cd">
+                                {listeningTrack.cover ? (
+                                    <img src={listeningTrack.cover} alt={`${listeningTrack.album} cover`} />
+                                ) : (
+                                    <span>♪</span>
+                                )}
+                            </div>
+                        </div>
+                        <div className="track-details">
+                            <span className={listeningTrack.isNowPlaying ? "status status-live" : "status"}>
+                                {listeningTrack.isNowPlaying ? "Now playing" : "Last played"}
+                            </span>
+                            <h3>{listeningTrack.title}</h3>
+                            <p>{listeningTrack.artist}</p>
+                            <p className="album-name">{listeningTrack.album}</p>
                         </div>
                     </div>
-                    <div className="track-details">
-                        <span className={listeningTrack.isNowPlaying ? "status status-live" : "status"}>
-                            {listeningTrack.isNowPlaying ? "Now playing" : "Last played"}
-                        </span>
-                        <h3>{listeningTrack.title}</h3>
-                        <p>{listeningTrack.artist}</p>
-                        <p className="album-name">{listeningTrack.album}</p>
+                </section>
+
+                <section className="top-tracks-card" aria-labelledby="top-tracks-heading">
+                    <div className="top-tracks-heading">
+                        <div>
+                            <p className="eyebrow">Last.fm chart</p>
+                            <h2 id="top-tracks-heading">Most played in the past 90 days</h2>
+                        </div>
+                        <span className="top-tracks-badge">Top 5</span>
                     </div>
-                </div>
-            </section>
+
+                    {topTracks.length ? (
+                        <ol className="top-tracks-list" aria-live="polite">
+                            {topTracks.map((track, index) => (
+                                <li className="top-track-item" key={`${track.title}-${track.artist}`}>
+                                    <span className="top-track-rank">{index + 1}</span>
+                                    <span className="top-track-copy">
+                                        <span className="top-track-title">{track.title}</span>
+                                        <span className="top-track-artist">{track.artist}</span>
+                                    </span>
+                                    <span className="top-track-plays">
+                                        {track.playCount}
+                                        <span>plays</span>
+                                    </span>
+                                </li>
+                            ))}
+                        </ol>
+                    ) : (
+                        <p className="top-tracks-message" aria-live="polite">{topTracksMessage}</p>
+                    )}
+                </section>
+            </div>
 
             <section className="favorite-albums" aria-labelledby="favorite-albums-heading">
                 <div className="section-heading">
