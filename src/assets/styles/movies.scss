@@ -1,0 +1,233 @@
+.movies-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 5% 10%;
+    text-align: left;
+}
+
+.movies-copy p {
+    max-width: 980px;
+    line-height: 1.8;
+}
+
+.movie-rental-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+    gap: 32px;
+    align-items: stretch;
+}
+
+.movie-shelf {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    min-height: 360px;
+    border-radius: 24px;
+    padding: 26px 22px 36px;
+    overflow-x: auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(80, 0, 202, 0.12));
+    box-shadow: inset 0 -18px 0 rgba(120, 53, 15, 0.5), 0 20px 42px rgba(0, 0, 0, 0.2);
+}
+
+.movie-shelf::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    bottom: 24px;
+    left: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(92, 47, 22, 0.85);
+}
+
+.movie-shelf-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 112px;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 285px;
+    border: 0;
+    border-radius: 10px 16px 16px 10px;
+    padding: 18px 12px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.32), transparent 18%), var(--movie-spine);
+    box-shadow: 10px 16px 28px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.24s ease, box-shadow 0.24s ease, outline-color 0.24s ease;
+}
+
+.movie-shelf-card:hover,
+.movie-shelf-card:focus-visible,
+.movie-shelf-card.is-selected {
+    transform: translateY(-18px) rotate(-2deg);
+    box-shadow: 14px 24px 38px rgba(0, 0, 0, 0.36);
+    outline: 3px solid rgba(255, 255, 255, 0.86);
+    outline-offset: 4px;
+}
+
+.movie-spine-label {
+    writing-mode: vertical-rl;
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.movie-format {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.movie-detail-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 360px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.movie-case {
+    width: min(100%, 285px);
+    aspect-ratio: 2 / 3;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    perspective: 1100px;
+}
+
+.movie-case-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.55s ease;
+}
+
+.movie-case.is-flipped .movie-case-inner {
+    transform: rotateY(180deg);
+}
+
+.movie-case-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    border: 10px solid rgba(9, 12, 18, 0.92);
+    border-radius: 18px;
+    padding: 20px;
+    backface-visibility: hidden;
+    box-shadow: 0 28px 50px rgba(0, 0, 0, 0.36);
+}
+
+.movie-case-front {
+    background: var(--movie-poster);
+}
+
+.movie-case-front::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+}
+
+.movie-case-back {
+    gap: 12px;
+    justify-content: center;
+    background: linear-gradient(135deg, #111827, #312e81);
+    transform: rotateY(180deg);
+}
+
+.movie-poster-art {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: clamp(3.5rem, 9vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -0.1em;
+    transform: translateX(-50%);
+}
+
+.movie-case-title {
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.05;
+}
+
+.movie-case-meta,
+.movie-thoughts,
+.movie-flip-hint {
+    position: relative;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.55;
+}
+
+.movie-flip-hint {
+    margin: 0;
+    font-size: 0.92rem;
+}
+
+.light-mode {
+    .movie-shelf,
+    .movie-detail-panel {
+        border-color: rgba(13, 17, 22, 0.1);
+        background: rgba(13, 17, 22, 0.04);
+    }
+
+    .movie-detail-panel > .movie-flip-hint {
+        color: #2d3748;
+    }
+}
+
+@media screen {
+    @media (max-width: 900px) {
+        .movie-rental-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .movie-detail-panel {
+            order: 2;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .movies-container {
+            padding-right: 5%;
+            padding-left: 5%;
+        }
+
+        .movie-shelf {
+            min-height: 310px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .movie-shelf-card {
+            flex-basis: 96px;
+            height: 240px;
+            scroll-snap-align: start;
+        }
+    }
+}
