@@ -41,7 +41,7 @@
     min-width: 0;
     flex-direction: column;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 24px;
+    border-radius: 0;
     padding: 24px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045));
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
@@ -68,7 +68,7 @@
     display: flex;
     gap: 18px;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 0;
     padding: 18px;
     background: rgba(0, 0, 0, 0.54);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
@@ -162,7 +162,7 @@
     display: inline-flex;
     flex: 0 0 auto;
     border: 1px solid rgba(30, 215, 96, 0.45);
-    border-radius: 999px;
+    border-radius: 0;
     padding: 6px 10px;
     color: #1ed760;
     font-size: 0.76rem;
@@ -186,20 +186,32 @@
     gap: 12px;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
+    border-radius: 0;
     padding: 11px 12px;
     background: rgba(0, 0, 0, 0.26);
 }
 
-.top-track-rank {
+.top-track-cover {
     display: grid;
     place-items: center;
-    width: 30px;
+    width: 38px;
     aspect-ratio: 1;
+    overflow: hidden;
+    border: 2px solid rgba(30, 215, 96, 0.45);
     border-radius: 50%;
     background: rgba(30, 215, 96, 0.18);
     color: #ffffff;
     font-weight: 900;
+}
+
+.top-track-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.top-track-cover span {
+    font-size: 1rem;
 }
 
 .top-track-copy {
@@ -246,7 +258,7 @@
 }
 
 .top-tracks-message {
-    border-radius: 16px;
+    border-radius: 0;
     padding: 16px;
     background: rgba(0, 0, 0, 0.22);
 }
@@ -265,7 +277,7 @@
     position: relative;
     min-height: 345px;
     border: 0;
-    border-radius: 18px;
+    border-radius: 0;
     padding: 16px;
     background: rgba(255, 255, 255, 0.06);
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
@@ -295,7 +307,7 @@
     width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 0;
     background: linear-gradient(135deg, var(--album-accent), #333333);
 }
 
@@ -480,7 +492,7 @@
     min-height: 100%;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    border-radius: 0;
     background: rgba(255, 255, 255, 0.055);
     color: inherit;
     text-decoration: none;
@@ -541,15 +553,6 @@
     margin-top: 4px;
 }
 
-.spotify-link {
-    margin-top: auto;
-    padding-top: 8px;
-    color: #1ed760;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
 
 .light-mode {
     .recommended-heading p:last-child,

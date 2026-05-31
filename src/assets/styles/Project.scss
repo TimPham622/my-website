@@ -21,7 +21,7 @@
 }
   
 .zoom {
-    border-radius: 5px;
+    border-radius: 0;
     transition: transform .2s;
     margin: 0 auto;
 }
@@ -51,12 +51,12 @@
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(255, 208, 137, 0.16);
-    border-radius: 24px;
+    border-radius: 0;
     padding: 18px;
     background: rgba(255, 244, 221, 0.06);
     box-shadow: 0 18px 42px rgba(25, 11, 5, 0.22);
 }
 
 .projects-container .projects-grid .project img {
-    border-radius: 18px;
+    border-radius: 0;
 }
