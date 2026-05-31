@@ -1,23 +1,245 @@
 .about-me-container {
-    padding: 5% 10%;
+    padding: clamp(2.5rem, 6vw, 5.5rem);
     display: flex;
-    flex-direction: column;
     text-align: left;
 }
 
+.about-spotlight {
+    isolation: isolate;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 74% 28%, rgba(255, 209, 102, 0.35), transparent 27%),
+        radial-gradient(circle at 88% 76%, rgba(118, 199, 255, 0.28), transparent 24%),
+        radial-gradient(circle at 22% 18%, rgba(255, 112, 166, 0.26), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035));
+}
+
+.about-spotlight::before {
+    z-index: -1;
+}
+
+.about-copy-card,
+.about-photo-collage {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 0;
+}
+
+.about-copy-card {
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 34px;
+    background: rgba(10, 10, 16, 0.45);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px);
+}
+
+.about-copy-card::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border: 1px dashed rgba(255, 255, 255, 0.26);
+    border-radius: 24px;
+    pointer-events: none;
+}
+
+.about-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    color: #20180a;
+    background: #ffd166;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 28px rgba(255, 209, 102, 0.26);
+}
+
+.about-kicker::before {
+    content: "✦";
+}
+
+.about-me-container h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+}
+
 .about-me-container p {
+    position: relative;
     margin: 0;
-    max-width: 1200px;
+    max-width: 62ch;
     line-height: 1.8;
     overflow-wrap: anywhere;
 }
 
+.about-photo-collage {
+    min-height: clamp(430px, 48vw, 580px);
+}
+
+.about-photo-collage::before,
+.about-photo-collage::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.about-photo-collage::before {
+    inset: 13% 7% 11% 10%;
+    border: 2px dashed rgba(255, 255, 255, 0.28);
+    transform: rotate(-8deg);
+}
+
+.about-photo-collage::after {
+    right: 2%;
+    bottom: 8%;
+    width: 8rem;
+    height: 8rem;
+    background: rgba(255, 112, 166, 0.22);
+    filter: blur(2px);
+}
+
+.photo-placeholder {
+    --rotate: 0deg;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 12rem;
+    padding: 1rem;
+    border: 10px solid rgba(255, 255, 255, 0.86);
+    border-bottom-width: 2.8rem;
+    border-radius: 26px;
+    color: #271b42;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.54)),
+        repeating-linear-gradient(-45deg, rgba(118, 199, 255, 0.25) 0 12px, rgba(255, 112, 166, 0.18) 12px 24px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.24);
+    transform: rotate(var(--rotate));
+}
+
+.photo-placeholder:nth-child(1) {
+    --rotate: -8deg;
+    top: 4%;
+    left: 5%;
+    width: 48%;
+}
+
+.photo-placeholder:nth-child(2) {
+    --rotate: 7deg;
+    top: 12%;
+    right: 2%;
+    width: 42%;
+}
+
+.photo-placeholder:nth-child(3) {
+    --rotate: 5deg;
+    bottom: 7%;
+    left: 0;
+    width: 40%;
+}
+
+.photo-placeholder:nth-child(4) {
+    --rotate: -5deg;
+    right: 7%;
+    bottom: 0;
+    width: 50%;
+}
+
+.photo-accent {
+    position: absolute;
+    top: -1.4rem;
+    right: 1.3rem;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    color: #1f1634;
+    background: #76c7ff;
+    font-size: 1.3rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.photo-icon {
+    width: 4.8rem;
+    height: 4.8rem;
+    border: 3px solid rgba(39, 27, 66, 0.38);
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 70% 32%, rgba(255, 209, 102, 0.95) 0 12%, transparent 13%),
+        linear-gradient(135deg, transparent 53%, rgba(39, 27, 66, 0.28) 54% 61%, transparent 62%);
+}
+
+.photo-label {
+    position: absolute;
+    bottom: -2.05rem;
+    color: #271b42;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.light-mode .about-copy-card {
+    border-color: rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.62);
+    box-shadow: 0 24px 70px rgba(80, 42, 110, 0.16);
+}
+
+.light-mode .about-copy-card::before {
+    border-color: rgba(0, 0, 0, 0.16);
+}
+
+.light-mode .about-spotlight {
+    background:
+        radial-gradient(circle at 74% 28%, rgba(255, 186, 73, 0.45), transparent 27%),
+        radial-gradient(circle at 88% 76%, rgba(69, 164, 240, 0.25), transparent 24%),
+        radial-gradient(circle at 22% 18%, rgba(255, 112, 166, 0.22), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 248, 235, 0.72));
+}
+
 @media screen {
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         .about-me-container {
-            display: block;
+            flex-direction: column;
             padding-left: 5%;
             padding-right: 5%;
+        }
+
+        .about-copy-card,
+        .about-photo-collage {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 620px) {
+        .about-photo-collage {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            min-height: 0;
+        }
+
+        .about-photo-collage::before,
+        .about-photo-collage::after {
+            display: none;
+        }
+
+        .photo-placeholder,
+        .photo-placeholder:nth-child(n) {
+            position: relative;
+            inset: auto;
+            width: 100%;
+            min-height: 13rem;
+            transform: rotate(0deg);
         }
     }
 }
