@@ -241,29 +241,29 @@ function Movies() {
             </div>
 
             <div className="dvd-rack-layout" aria-label="TMDB DVD shelf">
-                <div className="dvd-stack">
-                    {shelfMovies.map((movie) => {
-                        const isSelected = selectedShelfMovie.tmdbId === movie.tmdbId;
+                    <div className="dvd-stack">
+                        {shelfMovies.map((movie) => {
+                            const isSelected = selectedShelfMovie.tmdbId === movie.tmdbId;
 
-                        return (
-                            <button
-                                className={`dvd-spine ${isSelected ? "is-selected" : ""}`}
-                                key={movie.tmdbId}
-                                onClick={() => setSelectedShelfMovieId(movie.tmdbId)}
-                                style={{
-                                    "--dvd-spine": movie.spine,
-                                    "--dvd-tilt": `${movie.tilt}deg`,
-                                    "--dvd-offset": `${movie.offset}px`,
-                                } as React.CSSProperties}
-                                type="button"
-                                aria-pressed={isSelected}
-                            >
-                                <span>{movie.title}</span>
-                                <small>{getYearFromDate(movie.releaseDate, movie.fallbackYear)}</small>
-                            </button>
-                        );
-                    })}
-                </div>
+                            return (
+                                <button
+                                    className={`dvd-spine ${isSelected ? "is-selected" : ""}`}
+                                    key={movie.tmdbId}
+                                    onClick={() => setSelectedShelfMovieId(movie.tmdbId)}
+                                    style={
+                                        {
+                                            "--dvd-spine": movie.spine,
+                                        } as React.CSSProperties
+                                    }
+                                    type="button"
+                                    aria-pressed={isSelected}
+                                >
+                                    <span>{movie.title}</span>
+                                    <small>{getYearFromDate(movie.releaseDate, movie.fallbackYear)}</small>
+                                </button>
+                            );
+                        })}
+                    </div>
 
                 <aside className="dvd-side-panel" aria-live="polite">
                     <div className="dvd-poster-frame">
