@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "../assets/styles/movies.scss";
 import oceansElevenPoster from "../assets/images/oceans-eleven-poster.jpg";
 import socialNetworkPoster from "../assets/images/the-social-network-poster.jpg";
 import whisperOfTheHeartPoster from "../assets/images/whisper-of-the-heart-poster.jpg";
 import yourNamePoster from "../assets/images/your-name-poster.jpg";
 
-type Movie = {
+type FavoriteMovie = {
     title: string;
     year: string;
     format: string;
@@ -14,7 +14,33 @@ type Movie = {
     thoughts: string;
 };
 
-const favoriteMovies: Movie[] = [
+type TmdbShelfMovieConfig = {
+    tmdbId: number;
+    title: string;
+    fallbackYear: string;
+    spine: string;
+    tilt: number;
+    offset: number;
+};
+
+type ShelfMovie = TmdbShelfMovieConfig & {
+    posterPath?: string;
+    releaseDate?: string;
+    director?: string;
+};
+
+type TmdbMovieResponse = {
+    poster_path?: string;
+    release_date?: string;
+    credits?: {
+        crew?: Array<{
+            job?: string;
+            name?: string;
+        }>;
+    };
+};
+
+const favoriteMovies: FavoriteMovie[] = [
     {
         title: "The Social Network",
         year: "2010",
@@ -49,11 +75,101 @@ const favoriteMovies: Movie[] = [
     },
 ];
 
-function Movies() {
-    const [selectedMovie, setSelectedMovie] = useState<Movie>(favoriteMovies[0]);
-    const [isFlipped, setIsFlipped] = useState(false);
+const tmdbShelfMovies: TmdbShelfMovieConfig[] = [
+    { tmdbId: 11544, title: "Lilo & Stitch", fallbackYear: "2002", spine: "#0ea5e9", tilt: -7, offset: 12 },
+    { tmdbId: 406, title: "La Haine", fallbackYear: "1995", spine: "#111827", tilt: 5, offset: 0 },
+    { tmdbId: 545611, title: "Everything Everywhere All at Once", fallbackYear: "2022", spine: "#9333ea", tilt: -3, offset: 18 },
+    { tmdbId: 11104, title: "Chungking Express", fallbackYear: "1994", spine: "#f97316", tilt: 6, offset: 7 },
+    { tmdbId: 8392, title: "My Neighbor Totoro", fallbackYear: "1988", spine: "#16a34a", tilt: -5, offset: 22 },
+    { tmdbId: 84892, title: "The Perks of Being a Wallflower", fallbackYear: "2012", spine: "#facc15", tilt: 4, offset: 5 },
+    { tmdbId: 146, title: "Crouching Tiger, Hidden Dragon", fallbackYear: "2000", spine: "#047857", tilt: -2, offset: 14 },
+    { tmdbId: 2062, title: "Ratatouille", fallbackYear: "2007", spine: "#dc2626", tilt: 7, offset: 1 },
+    { tmdbId: 391713, title: "Lady Bird", fallbackYear: "2017", spine: "#fb7185", tilt: -6, offset: 16 },
+];
 
-    const handleSelectMovie = (movie: Movie) => {
+const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";
+
+const getYearFromDate = (releaseDate?: string, fallbackYear?: string) => {
+    if (!releaseDate) {
+        return fallbackYear ?? "TBA";
+    }
+
+    return releaseDate.slice(0, 4);
+};
+
+const formatReleaseDate = (releaseDate?: string, fallbackYear?: string) => {
+    if (!releaseDate) {
+        return fallbackYear ?? "Release date coming soon";
+    }
+
+    return new Intl.DateTimeFormat("en", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+    }).format(new Date(`${releaseDate}T00:00:00`));
+};
+
+function Movies() {
+    const [selectedMovie, setSelectedMovie] = useState<FavoriteMovie>(favoriteMovies[0]);
+    const [isFlipped, setIsFlipped] = useState(false);
+    const [shelfMovies, setShelfMovies] = useState<ShelfMovie[]>(tmdbShelfMovies);
+    const [selectedShelfMovieId, setSelectedShelfMovieId] = useState(tmdbShelfMovies[0].tmdbId);
+    const tmdbApiKey = process.env.REACT_APP_TMDB_API_KEY;
+
+    useEffect(() => {
+        if (!tmdbApiKey) {
+            return;
+        }
+
+        const controller = new AbortController();
+
+        const fetchShelfMovies = async () => {
+            const movieDetails = await Promise.all(
+                tmdbShelfMovies.map(async (movie) => {
+                    const response = await fetch(
+                        `https://api.themoviedb.org/3/movie/${movie.tmdbId}?api_key=${tmdbApiKey}&append_to_response=credits`,
+                        { signal: controller.signal }
+                    );
+
+                    if (!response.ok) {
+                        return movie;
+                    }
+
+                    const data: TmdbMovieResponse = await response.json();
+                    const director = data.credits?.crew
+                        ?.filter((crewMember) => crewMember.job === "Director")
+                        .map((crewMember) => crewMember.name)
+                        .filter(Boolean)
+                        .join(", ");
+
+                    return {
+                        ...movie,
+                        posterPath: data.poster_path,
+                        releaseDate: data.release_date,
+                        director: director || undefined,
+                    };
+                })
+            );
+
+            setShelfMovies(movieDetails);
+        };
+
+        fetchShelfMovies().catch((error) => {
+            if (error.name !== "AbortError") {
+                // Keep the hand-authored fallback shelf if TMDB is unavailable.
+                console.error("Unable to load TMDB shelf", error);
+            }
+        });
+
+        return () => controller.abort();
+    }, [tmdbApiKey]);
+
+    const selectedShelfMovie = useMemo(
+        () => shelfMovies.find((movie) => movie.tmdbId === selectedShelfMovieId) ?? shelfMovies[0],
+        [selectedShelfMovieId, shelfMovies]
+    );
+
+    const handleSelectMovie = (movie: FavoriteMovie) => {
         setSelectedMovie(movie);
         setIsFlipped(false);
     };
@@ -62,14 +178,16 @@ function Movies() {
         setIsFlipped((currentFlipState) => !currentFlipState);
     };
 
+    const selectedShelfPoster = selectedShelfMovie.posterPath ? `${tmdbImageBaseUrl}${selectedShelfMovie.posterPath}` : undefined;
+
     return (
         <section className="movies-container" id="movies" aria-labelledby="movies-heading">
             <div className="movies-copy">
                 <p className="eyebrow">Rental shelf</p>
                 <h1 id="movies-heading">Favourite movies</h1>
                 <p>
-                    A small rental-store shelf of films I keep coming back to. Pick a movie from the shelf to load it into the case,
-                    then flip the case to read placeholder notes for now.
+                    A small rental-store shelf of films I keep coming back to. Pick a favourite from the featured cases, or pull
+                    one of the crooked DVD spines to open a TMDB-powered side panel.
                 </p>
             </div>
 
@@ -120,6 +238,56 @@ function Movies() {
                     </button>
                     <p className="movie-flip-hint">Tap or click the case to flip it.</p>
                 </div>
+            </div>
+
+            <div className="dvd-rack-layout" aria-label="TMDB DVD shelf">
+                <div className="dvd-stack">
+                    {shelfMovies.map((movie) => {
+                        const isSelected = selectedShelfMovie.tmdbId === movie.tmdbId;
+
+                        return (
+                            <button
+                                className={`dvd-spine ${isSelected ? "is-selected" : ""}`}
+                                key={movie.tmdbId}
+                                onClick={() => setSelectedShelfMovieId(movie.tmdbId)}
+                                style={{
+                                    "--dvd-spine": movie.spine,
+                                    "--dvd-tilt": `${movie.tilt}deg`,
+                                    "--dvd-offset": `${movie.offset}px`,
+                                } as React.CSSProperties}
+                                type="button"
+                                aria-pressed={isSelected}
+                            >
+                                <span>{movie.title}</span>
+                                <small>{getYearFromDate(movie.releaseDate, movie.fallbackYear)}</small>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                <aside className="dvd-side-panel" aria-live="polite">
+                    <div className="dvd-poster-frame">
+                        {selectedShelfPoster ? (
+                            <img src={selectedShelfPoster} alt={`${selectedShelfMovie.title} poster`} />
+                        ) : (
+                            <span>{selectedShelfMovie.title}</span>
+                        )}
+                    </div>
+                    <div className="dvd-panel-copy">
+                        <p className="eyebrow">From TMDB</p>
+                        <h2>{selectedShelfMovie.title}</h2>
+                        <dl>
+                            <div>
+                                <dt>Director</dt>
+                                <dd>{selectedShelfMovie.director ?? "Loading from TMDB"}</dd>
+                            </div>
+                            <div>
+                                <dt>Release date</dt>
+                                <dd>{formatReleaseDate(selectedShelfMovie.releaseDate, selectedShelfMovie.fallbackYear)}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </aside>
             </div>
         </section>
     );
