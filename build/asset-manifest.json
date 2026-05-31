@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-website/static/css/main.f16d9723.css",
-    "main.js": "/my-website/static/js/main.f531ce63.js",
+    "main.css": "/my-website/static/css/main.3959482b.css",
+    "main.js": "/my-website/static/js/main.0bab828e.js",
     "static/js/453.b05d8aa5.chunk.js": "/my-website/static/js/453.b05d8aa5.chunk.js",
     "static/media/melodrama-album-cover.jpg": "/my-website/static/media/melodrama-album-cover.d8bc3a20016e736714e5.jpg",
     "static/media/time-n-place-album-cover.png": "/my-website/static/media/time-n-place-album-cover.cbfd5efb1ced7546118a.png",
@@ -21,12 +21,12 @@
     "static/media/susquehanna-algothon.png": "/my-website/static/media/susquehanna-algothon.f52fc8b3594fc96711fc.png",
     "static/media/fourier-playground.png": "/my-website/static/media/fourier-playground.eec93817c8ae4fb0c074.png",
     "index.html": "/my-website/index.html",
-    "main.f16d9723.css.map": "/my-website/static/css/main.f16d9723.css.map",
-    "main.f531ce63.js.map": "/my-website/static/js/main.f531ce63.js.map",
+    "main.3959482b.css.map": "/my-website/static/css/main.3959482b.css.map",
+    "main.0bab828e.js.map": "/my-website/static/js/main.0bab828e.js.map",
     "453.b05d8aa5.chunk.js.map": "/my-website/static/js/453.b05d8aa5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f16d9723.css",
-    "static/js/main.f531ce63.js"
+    "static/css/main.3959482b.css",
+    "static/js/main.0bab828e.js"
   ]
 }
