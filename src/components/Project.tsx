@@ -34,7 +34,7 @@ function Project() {
         <div className="projects-heading">
             <p className="section-eyebrow">Selected builds / quick scan</p>
             <h1>Personal Projects</h1>
-            <p>Compact cards keep every project visible at once on desktop, with small icon accents for fast recognition.</p>
+            <p>Here is a list of some of my favourite personal projects that I have done since the start of Uni. I tried to tackle a different language each time, and prioritised my interests.</p>
         </div>
 
         <div className="projects-grid">

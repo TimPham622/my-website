@@ -39,7 +39,6 @@ function Timeline() {
     <section id="history" className="life-section">
       <div className="items-container life-panel">
         <div className="life-copy">
-          <p className="section-eyebrow">My life / compressed cut</p>
           <h1>About my Life!</h1>
           <p className="life-intro">
             A compact timeline of the moments that shaped what I am building, learning, and leading right now.

@@ -186,8 +186,8 @@ function Movies() {
                 <p className="eyebrow">Rental shelf</p>
                 <h1 id="movies-heading">Favourite movies</h1>
                 <p>
-                    A small rental-store shelf of films I keep coming back to. Pick a favourite from the featured cases, or pull
-                    one of the crooked DVD spines to open a TMDB-powered side panel.
+                Movies have also defined my life, where I tackled a similar project where I watched a movie every 
+                day for around 2-3 years. Here are my favourites!
                 </p>
             </div>
 
@@ -274,7 +274,6 @@ function Movies() {
                         )}
                     </div>
                     <div className="dvd-panel-copy">
-                        <p className="eyebrow">From TMDB</p>
                         <h2>{selectedShelfMovie.title}</h2>
                         <dl>
                             <div>
