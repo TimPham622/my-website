@@ -1,70 +1,84 @@
 import React from "react";
-import '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
-import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
+import { faBriefcase, faCode, faGraduationCap, faUsers } from '@fortawesome/free-solid-svg-icons';
 import '../assets/styles/Timeline.scss'
+
+const lifeEvents = [
+  {
+    year: "2025",
+    title: "Started RSP",
+    place: "Adelaide/Remote",
+    description: "Participating in a coding bootcamp to enhance my software development skills.",
+    icon: faCode,
+  },
+  {
+    year: "2025",
+    title: "Computer Science Club Vice President",
+    place: "University of Adelaide",
+    description: "Elected Vice President to over 700+ paid members whilst in my first year.",
+    icon: faUsers,
+  },
+  {
+    year: "2025",
+    title: "Started my University Education",
+    place: "University of Adelaide",
+    description: "Commenced my degree in Mathematics and Computer Science.",
+    icon: faGraduationCap,
+  },
+  {
+    year: "2024",
+    title: "Graduated Year 12 with a SACE certificate",
+    place: "Adelaide High School",
+    description: "99.20 ATAR, Merit in Research Project and A+ in Specialist Mathematics, and Mathematical Methods.",
+    icon: faBriefcase,
+  },
+];
 
 function Timeline() {
   return (
-    <div id="history">
-      <div className="items-container">
-        <h1>About my Life!</h1>
-        <VerticalTimeline>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
-            contentArrowStyle={{ borderRight: '7px solid  white' }}
-            date="2025"
-            iconStyle={{ background: '#111827', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Started RSP</h3>
-            <h4 className="vertical-timeline-element-subtitle">Adelaide/Remote</h4>
-            <p>
-             Participating in a coding bootcamp to enhance my software development skills.
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2025"
-            iconStyle={{ background: '#111827', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Computer Science Club Vice President</h3>
-            <h4 className="vertical-timeline-element-subtitle">University of Adelaide</h4>
-            <p>
-              Elected Vice President to over 700+ paid members whilst in my first year.
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2025"
-            iconStyle={{ background: '#111827', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Started my University Education</h3>
-            <h4 className="vertical-timeline-element-subtitle">University of Adelaide</h4>
-            <p>
-              Commenced my degree in Mathematics and Computer Science.
-            </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2024"
-            iconStyle={{ background: '#111827', color: 'rgb(39, 40, 34)' }}
-            icon={<FontAwesomeIcon icon={faBriefcase} />}
-          >
-            <h3 className="vertical-timeline-element-title">Graduated Year 12 with a SACE certificate</h3>
-            <h4 className="vertical-timeline-element-subtitle">Adelaide High School</h4>
-            <p>
-              99.20 ATAR, Merit in Research Project and A+ in Specialist Mathematics, and Mathematical Methods. 
-            </p>
-          </VerticalTimelineElement>
-        </VerticalTimeline>
+    <section id="history" className="life-section">
+      <div className="items-container life-panel">
+        <div className="life-copy">
+          <h1>About my Life!</h1>
+          <p className="life-intro">
+            A compact timeline of the moments that shaped what I am building, learning, and leading right now.
+          </p>
+        </div>
+
+        <div className="life-layout" aria-label="Life milestones timeline">
+          <div className="life-collage" aria-hidden="true">
+            <div className="collage-card collage-card-large">
+              <span>Adelaide</span>
+            </div>
+            <div className="collage-card collage-card-small collage-card-top">
+              <span>Code</span>
+            </div>
+            <div className="collage-card collage-card-small collage-card-bottom">
+              <span>Maths</span>
+            </div>
+          </div>
+
+          <div className="compact-timeline">
+            {lifeEvents.map((event, index) => (
+              <article className="life-event" key={`${event.year}-${event.title}`}>
+                <div className="event-marker">
+                  <span className="event-year">{event.year}</span>
+                  <span className="event-dot">
+                    <FontAwesomeIcon icon={event.icon} />
+                  </span>
+                </div>
+                <div className="event-card">
+                  <span className="event-index">0{index + 1}</span>
+                  <h2>{event.title}</h2>
+                  <h3>{event.place}</h3>
+                  <p>{event.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

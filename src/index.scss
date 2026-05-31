@@ -219,7 +219,6 @@ h1 {
   pointer-events: none;
 }
 
-.about-me-container::after,
 .projects-container::after,
 .music-container::after,
 .movies-container::after {
@@ -239,9 +238,6 @@ h1 {
   pointer-events: none;
 }
 
-.about-me-container::after {
-  background-image: url("./assets/images/yi-yi.jpg");
-}
 
 .projects-container::after {
   background-image: url("./assets/images/la-haine.jpeg");
@@ -333,7 +329,6 @@ h1 {
       border-radius: 0;
     }
 
-    .about-me-container::after,
     .projects-container::after,
     .music-container::after,
     .movies-container::after {

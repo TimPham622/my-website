@@ -1,49 +1,260 @@
-.vertical-timeline span {
+.life-section {
+    width: 100%;
+}
+
+.life-panel {
+    gap: 28px;
+    overflow: hidden;
+}
+
+.section-eyebrow {
+    margin: 0 0 8px;
+    color: #f6c177;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.life-copy {
+    max-width: 760px;
+}
+
+.life-copy h1 {
+    margin: 0;
+}
+
+.life-intro {
+    max-width: 620px;
+    margin: 12px 0 0;
+    color: var(--site-muted);
+}
+
+.life-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.74fr) minmax(520px, 1.26fr);
+    gap: clamp(22px, 4vw, 56px);
+    align-items: stretch;
+}
+
+.life-collage {
+    position: relative;
+    min-height: 390px;
+    border: 1px solid var(--site-border);
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 34%),
+        rgba(255, 255, 255, 0.035);
+    overflow: hidden;
+}
+
+.life-collage::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px dashed rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+}
+
+.collage-card {
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
+    overflow: hidden;
+}
+
+.collage-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 24% 22%, rgba(255, 255, 255, 0.62), transparent 18%),
+        linear-gradient(135deg, rgba(246, 193, 119, 0.92), rgba(122, 162, 247, 0.56) 48%, rgba(15, 23, 42, 0.9));
+}
+
+.collage-card::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.collage-card span {
+    position: relative;
+    z-index: 1;
     color: white;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.collage-card-large {
+    inset: 34px 70px 92px 22px;
+    transform: rotate(-3deg);
+}
+
+.collage-card-top {
+    top: 66px;
+    right: 18px;
+    width: 42%;
+    height: 34%;
+    transform: rotate(7deg);
+}
+
+.collage-card-bottom {
+    right: 34px;
+    bottom: 32px;
+    width: 48%;
+    height: 30%;
+    transform: rotate(-1deg);
+}
+
+.compact-timeline {
+    position: relative;
+    display: grid;
+    gap: 12px;
+}
+
+.compact-timeline::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 65px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, #f6c177, transparent);
+}
+
+.life-event {
+    position: relative;
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.event-marker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.event-year {
+    color: var(--site-muted);
     font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    font-weight: 800;
 }
 
-.vertical-timeline p {
-    color: rgb(39, 40, 34);
+.event-dot {
+    z-index: 1;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid rgba(246, 193, 119, 0.58);
+    background: #111827;
+    box-shadow: 0 0 0 6px rgba(246, 193, 119, 0.08);
 }
 
-.vertical-timeline-element p {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element h3 {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element h4 {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element span {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element .vertical-timeline-element-date {
+.event-dot svg {
     color: white;
+    font-size: 0.85rem;
 }
 
-.svg-inline--fa {
-    color: white;
+.event-card {
+    position: relative;
+    min-height: 112px;
+    padding: 18px 20px 18px 64px;
+    border: 1px solid var(--site-border);
+    background: rgba(255, 255, 255, 0.075);
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
 }
 
-@media screen and (max-width: 1170px) {
-    .vertical-timeline-element .vertical-timeline-element-date {
-        color: rgb(39, 40, 34);
+.event-card:hover {
+    transform: translateX(6px);
+    border-color: rgba(246, 193, 119, 0.55);
+    background: rgba(255, 255, 255, 0.11);
+}
+
+.event-index {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    color: rgba(246, 193, 119, 0.86);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.event-card h2,
+.event-card h3,
+.event-card p {
+    margin: 0;
+}
+
+.event-card h2 {
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+}
+
+.event-card h3 {
+    margin-top: 4px;
+    color: var(--site-muted);
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.event-card p {
+    margin-top: 8px;
+    color: var(--site-muted);
+    font-size: 0.98rem;
+    line-height: 1.45;
+}
+
+.light-mode {
+    .life-collage::before {
+        border-color: rgba(0, 0, 0, 0.22);
+    }
+
+    .event-card {
+        background: rgba(255, 255, 255, 0.72);
     }
 }
-.vertical-timeline-element-content {
-    border: 1px solid rgba(255, 255, 255, 0.18) !important;
-    border-radius: 0 !important;
-    background: rgba(255, 255, 255, 0.92) !important;
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18) !important;
+
+@media screen and (max-width: 980px) {
+    .life-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .life-collage {
+        min-height: 260px;
+    }
 }
 
-.vertical-timeline-element-icon {
-    background: #111827 !important;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.72), inset 0 2px 0 rgba(255, 255, 255, 0.28), 0 0 0 9px rgba(0, 0, 0, 0.16) !important;
+@media screen and (max-width: 640px) {
+    .life-event {
+        grid-template-columns: 76px 1fr;
+        gap: 12px;
+    }
+
+    .compact-timeline::before {
+        left: 49px;
+    }
+
+    .event-card {
+        padding: 16px;
+    }
+
+    .event-index {
+        position: static;
+        display: block;
+        margin-bottom: 6px;
+    }
 }
