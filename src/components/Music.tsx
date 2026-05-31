@@ -45,6 +45,14 @@ type LastFmAlbum = {
     };
 };
 
+type LastFmTrackInfo = {
+    track?: {
+        album?: {
+            image?: LastFmImage[];
+        };
+    };
+};
+
 type ListeningTrack = {
     title: string;
     artist: string;
@@ -65,6 +73,7 @@ type TopTrack = {
     title: string;
     artist: string;
     playCount: number;
+    cover: string;
 };
 
 const favoriteAlbums: Album[] = [
@@ -263,13 +272,48 @@ function Music() {
                         title: track.name,
                         artist: track.artist?.["#text"] || "Unknown artist",
                         playCount: Number(track.playcount || 0),
+                        cover: "",
                     }))
                     .filter((track) => track.title && track.playCount > 0)
                     .sort((trackA, trackB) => trackB.playCount - trackA.playCount)
                     .slice(0, 5);
 
-                setTopTracks(normalizedTracks);
-                setTopTracksMessage(normalizedTracks.length ? "" : "No scrobbles found in the past 90 days.");
+                if (!normalizedTracks.length) {
+                    setTopTracks([]);
+                    setTopTracksMessage("No scrobbles found in the past 90 days.");
+                    return;
+                }
+
+                return Promise.all(
+                    normalizedTracks.map((track) => {
+                        const trackInfoUrl = buildLastFmUrl({
+                            method: "track.getInfo",
+                            artist: track.artist,
+                            track: track.title,
+                            api_key: apiKey,
+                            autocorrect: "1",
+                        });
+
+                        return fetch(trackInfoUrl, { signal: controller.signal })
+                            .then((response) => response.json())
+                            .then((trackInfo: LastFmTrackInfo) => ({
+                                ...track,
+                                cover: getLargestImage(trackInfo.track?.album?.image),
+                            }))
+                            .catch((error) => {
+                                if (error.name === "AbortError") {
+                                    throw error;
+                                }
+
+                                console.error(`Unable to load Last.fm cover for ${track.title}`, error);
+
+                                return track;
+                            });
+                    })
+                ).then((tracksWithCovers) => {
+                    setTopTracks(tracksWithCovers);
+                    setTopTracksMessage("");
+                });
             })
             .catch((error) => {
                 if (error.name !== "AbortError") {
@@ -382,9 +426,15 @@ function Music() {
 
                     {topTracks.length ? (
                         <ol className="top-tracks-list" aria-live="polite">
-                            {topTracks.map((track, index) => (
+                            {topTracks.map((track) => (
                                 <li className="top-track-item" key={`${track.title}-${track.artist}`}>
-                                    <span className="top-track-rank">{index + 1}</span>
+                                    <span className="top-track-cover">
+                                        {track.cover ? (
+                                            <img src={track.cover} alt={`${track.title} cover`} loading="lazy" />
+                                        ) : (
+                                            <span aria-hidden="true">♪</span>
+                                        )}
+                                    </span>
                                     <span className="top-track-copy">
                                         <span className="top-track-title">{track.title}</span>
                                         <span className="top-track-artist">{track.artist}</span>
@@ -470,7 +520,6 @@ function Music() {
                                     <span className="recommendation-title">{album.title}</span>
                                     <span className="recommendation-artist">{album.artist}</span>
                                     <span className="recommendation-mood">{album.mood}</span>
-                                    <span className="spotify-link">Find on Spotify ↗</span>
                                 </span>
                             </a>
                         );
