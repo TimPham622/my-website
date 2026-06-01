@@ -8,6 +8,8 @@ import LaHaine from '../assets/images/la-haine.jpeg';
 import WallE from '../assets/images/wall-e.jpg';
 import YiYi from '../assets/images/yi-yi.jpg';
 import YourName from '../assets/images/your-name-big.jpg';
+import PastLives from '../assets/images/past-lives.jpeg';
+import Ponyo from '../assets/images/ponyo.jpeg';
 
 const heroScenes = [
   { src: ChungkingExpress, label: "Chungking Express" },
@@ -15,28 +17,46 @@ const heroScenes = [
   { src: YiYi, label: "Yi Yi" },
   { src: LaHaine, label: "La Haine" },
   { src: YourName, label: "Your Name" },
+  { src: PastLives, label: "Past Lives"},
+  { src: Ponyo, label: "Ponyo"},
 ];
 
 const movieQuotes = [
   { text: "Just be a rock.", movie: "Everything Everywhere All at Once" },
-  { text: "I'm CEO, bitch.", movie: "The Social Network" },
   { text: "You don't get to 500 million friends without making a few enemies.", movie: "The Social Network" },
-  { text: "Country roads, take me home.", movie: "Whisper of the Heart" },
-  { text: "You and I are alike.", movie: "Whisper of the Heart" },
-  { text: "Your name is Mitsuha.", movie: "Your Name" },
   { text: "I wanted to tell you that wherever you are, I'll come find you.", movie: "Your Name" },
-  { text: "Are you in or out?", movie: "Ocean's Eleven" },
-  { text: "You shook Sinatra's hand.", movie: "Ocean's Eleven" },
-  { text: "If memories could be canned, would they also have expiry dates?", movie: "Chungking Express" },
+  { text: "If memories ever come in a can, I hope that can never expires.", movie: "Chungking Express" },
   { text: "We brush past so many other people every day.", movie: "Chungking Express" },
-  { text: "WALL-E.", movie: "WALL-E" },
-  { text: "Directive?", movie: "WALL-E" },
+  { text: "Love is a matter of timing.", movie: "In the Mood for Love" },
   { text: "Never ask for the meaning of life.", movie: "Yi Yi" },
   { text: "So far, so good.", movie: "La Haine" },
+  { text: "Not everyone can become a great artist, but a great artist can come from anywhere.", movie: "Ratatouille" },
+];
+
+const songLyrics = [
+  { text: "You better start walking; Love takes miles", song: "Love Takes Miles", artist: "Cameron Winter" },
+  { text: "Control yourself. Take only what you need from it.", song: "Kids", artist: "MGMT" },
+  { text: "To call for hands of above to lean on, wouldn't be good enough for me? No.", song: "Heartbeats", artist: "The Knife" },
+  { text: "Love is watching someone die.", song: "What Sarah Said", artist: "Death Cab for Cutie" },
+  { text: "Wait. They don't love you like I love you.", song: "Maps", artist: "Yeah Yeah Yeahs" },
+  { text: "If I could see all my friends tonight.", song: "All My Friends", artist: "LCD Soundsystem" },
+  { text: "I hate you for what you did. And I miss you like a little kid.", song: "Motion Sickness", artist: "Phoebe Bridgers" },
+  { text: "And I know it doesn't last, but I don't mind at all anymore", song: "Musician", artist: "Porter Robinson" },
+  { text: "Don't you realize our bodies could fall apart any second?", song: "Bodys", artist: "Car Seat Headrest" },
+
 ];
 
 function Main() {
-  const [quote] = useState(() => movieQuotes[Math.floor(Math.random() * movieQuotes.length)]);
+  const [quote] = useState(() => {
+    const useMovies = Math.random() < 0.5;
+    if (useMovies) {
+      const item = movieQuotes[Math.floor(Math.random() * movieQuotes.length)];
+      return { text: item.text, attribution: item.movie };
+    } else {
+      const item = songLyrics[Math.floor(Math.random() * songLyrics.length)];
+      return { text: item.text, attribution: `${item.song} — ${item.artist}` };
+    }
+  });
 
   return (
     <div className="container hero-container">
@@ -59,7 +79,7 @@ function Main() {
           <h1>Hello, I'm Tim ☺</h1>
           <figure className="hero-quote">
             <blockquote>“{quote.text}”</blockquote>
-            <figcaption>{quote.movie}</figcaption>
+            <figcaption>{quote.attribution}</figcaption>
           </figure>
 
           <div className="mobile_social_icons">

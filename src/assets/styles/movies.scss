@@ -102,20 +102,7 @@
     outline-offset: 4px;
 }
 
-.movie-rental-sticker {
-    position: relative;
-    z-index: 1;
-    align-self: flex-end;
-    padding: 4px 7px;
-    border-radius: 0;
-    background: rgba(255, 255, 255, 0.88);
-    color: #111111;
-    font-size: 0.58rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transform: rotate(3deg);
-}
+
 
 .movie-spine-label {
     position: relative;
@@ -361,6 +348,7 @@
 .dvd-spine small {
     position: relative;
     z-index: 1;
+    padding-left: 10px;
 }
 
 .dvd-spine span {

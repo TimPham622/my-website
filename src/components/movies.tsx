@@ -208,7 +208,6 @@ function Movies() {
                                 type="button"
                                 aria-pressed={isSelected}
                             >
-                                <span className="movie-rental-sticker">New arrival</span>
                                 <span className="movie-spine-label">{movie.title}</span>
                                 <span className="movie-format">{movie.format}</span>
                             </button>
