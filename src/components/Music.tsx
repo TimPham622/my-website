@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import '../assets/styles/Music.scss';
-import nurtureCover from '../assets/images/nurture-album-cover.png';
-import redCover from '../assets/images/red-album-cover.jpg';
-import timeNPlaceCover from '../assets/images/time-n-place-album-cover.png';
-import melodramaCover from '../assets/images/melodrama-album-cover.jpg';
+import nurtureCover from '../assets/images/nurture-album-cover.webp';
+import redCover from '../assets/images/red-album-cover.webp';
+import timeNPlaceCover from '../assets/images/time-n-place-album-cover.webp';
+import melodramaCover from '../assets/images/melodrama-album-cover.webp';
 
 type Album = {
     title: string;

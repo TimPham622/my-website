@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "../assets/styles/movies.scss";
-import oceansElevenPoster from "../assets/images/oceans-eleven-poster.jpg";
-import socialNetworkPoster from "../assets/images/the-social-network-poster.jpg";
-import whisperOfTheHeartPoster from "../assets/images/whisper-of-the-heart-poster.jpg";
-import yourNamePoster from "../assets/images/your-name-poster.jpg";
+import oceansElevenPoster from "../assets/images/oceans-eleven-poster.webp";
+import socialNetworkPoster from "../assets/images/the-social-network-poster.webp";
+import whisperOfTheHeartPoster from "../assets/images/whisper-of-the-heart-poster.webp";
+import yourNamePoster from "../assets/images/your-name-poster.webp";
 
 type FavoriteMovie = {
     title: string;

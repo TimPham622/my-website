@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import '../assets/styles/Main.scss';
-import Tim from '../assets/images/tim-pham.png';
-import ChungkingExpress from '../assets/images/chungking-express.jpg';
-import LaHaine from '../assets/images/la-haine.jpeg';
-import WallE from '../assets/images/wall-e.jpg';
-import YiYi from '../assets/images/yi-yi.jpg';
-import YourName from '../assets/images/your-name-big.jpg';
-import PastLives from '../assets/images/past-lives.jpeg';
-import Ponyo from '../assets/images/ponyo.jpeg';
+import Tim from '../assets/images/tim-pham.webp';
+import ChungkingExpress from '../assets/images/chungking-express.webp';
+import LaHaine from '../assets/images/la-haine.webp';
+import WallE from '../assets/images/wall-e.webp';
+import YiYi from '../assets/images/yi-yi.webp';
+import YourName from '../assets/images/your-name-big.webp';
+import PastLives from '../assets/images/past-lives.webp';
+import Ponyo from '../assets/images/ponyo.webp';
 
 const heroScenes = [
   { src: ChungkingExpress, label: "Chungking Express" },

@@ -1,7 +1,7 @@
 import React from "react";
-import academyAwardsPredictor from '../assets/images/academy-awards-predictor.png';
-import fourierPlayground from '../assets/images/fourier-playground.png';
-import susquehannaAlgothon from '../assets/images/susquehanna-algothon.png';
+import academyAwardsPredictor from '../assets/images/academy-awards-predictor.webp';
+import fourierPlayground from '../assets/images/fourier-playground.webp';
+import susquehannaAlgothon from '../assets/images/susquehanna-algothon.webp';
 import '../assets/styles/Project.scss';
 
 const projects = [
