@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/my-website/static/css/main.68049b22.css",
+    "main.css": "/my-website/static/css/main.a6a3e7d3.css",
     "main.js": "/my-website/static/js/main.85c07145.js",
     "static/js/453.b05d8aa5.chunk.js": "/my-website/static/js/453.b05d8aa5.chunk.js",
     "static/media/your-name-big.webp": "/my-website/static/media/your-name-big.84a7e7de107d4b58ad10.webp",
@@ -67,12 +67,12 @@
     "static/media/KaTeX_Size3-Regular.woff": "/my-website/static/media/KaTeX_Size3-Regular.7947224e8a9914fa332b.woff",
     "static/media/KaTeX_Size3-Regular.woff2": "/my-website/static/media/KaTeX_Size3-Regular.e1951519f6f0596f7356.woff2",
     "index.html": "/my-website/index.html",
-    "main.68049b22.css.map": "/my-website/static/css/main.68049b22.css.map",
+    "main.a6a3e7d3.css.map": "/my-website/static/css/main.a6a3e7d3.css.map",
     "main.85c07145.js.map": "/my-website/static/js/main.85c07145.js.map",
     "453.b05d8aa5.chunk.js.map": "/my-website/static/js/453.b05d8aa5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.68049b22.css",
+    "static/css/main.a6a3e7d3.css",
     "static/js/main.85c07145.js"
   ]
 }
