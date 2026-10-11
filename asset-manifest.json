@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/my-website/static/css/main.a2c60224.css",
-    "main.js": "/my-website/static/js/main.1a51ad01.js",
+    "main.js": "/my-website/static/js/main.beb64469.js",
     "static/js/453.b05d8aa5.chunk.js": "/my-website/static/js/453.b05d8aa5.chunk.js",
     "static/media/your-name-big.webp": "/my-website/static/media/your-name-big.84a7e7de107d4b58ad10.webp",
     "static/media/la-haine.webp": "/my-website/static/media/la-haine.96c6d1ee13c705d602e8.webp",
     "static/media/chungking-express.webp": "/my-website/static/media/chungking-express.087eeeaf52e7b4319084.webp",
     "index.html": "/my-website/index.html",
     "main.a2c60224.css.map": "/my-website/static/css/main.a2c60224.css.map",
-    "main.1a51ad01.js.map": "/my-website/static/js/main.1a51ad01.js.map",
+    "main.beb64469.js.map": "/my-website/static/js/main.beb64469.js.map",
     "453.b05d8aa5.chunk.js.map": "/my-website/static/js/453.b05d8aa5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a2c60224.css",
-    "static/js/main.1a51ad01.js"
+    "static/js/main.beb64469.js"
   ]
 }
