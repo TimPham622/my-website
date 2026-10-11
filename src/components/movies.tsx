@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/styles/movies.scss";
 import { useContent } from '../content/ContentProvider';
 
@@ -18,6 +18,7 @@ type ShelfMovie = TmdbShelfMovieConfig & {
 };
 
 type TmdbMovieResponse = {
+    title?: string;
     poster_path?: string;
     release_date?: string;
     credits?: {
@@ -27,18 +28,6 @@ type TmdbMovieResponse = {
         }>;
     };
 };
-
-const tmdbShelfMovies: TmdbShelfMovieConfig[] = [
-    { tmdbId: 11544, title: "Lilo & Stitch", fallbackYear: "2002", spine: "#0ea5e9", tilt: -7, offset: 12 },
-    { tmdbId: 406, title: "La Haine", fallbackYear: "1995", spine: "#111827", tilt: 5, offset: 0 },
-    { tmdbId: 545611, title: "Everything Everywhere All at Once", fallbackYear: "2022", spine: "#9333ea", tilt: -3, offset: 18 },
-    { tmdbId: 11104, title: "Chungking Express", fallbackYear: "1994", spine: "#f97316", tilt: 6, offset: 7 },
-    { tmdbId: 8392, title: "My Neighbor Totoro", fallbackYear: "1988", spine: "#16a34a", tilt: -5, offset: 22 },
-    { tmdbId: 84892, title: "The Perks of Being a Wallflower", fallbackYear: "2012", spine: "#facc15", tilt: 4, offset: 5 },
-    { tmdbId: 146, title: "Crouching Tiger, Hidden Dragon", fallbackYear: "2000", spine: "#047857", tilt: -2, offset: 14 },
-    { tmdbId: 2062, title: "Ratatouille", fallbackYear: "2007", spine: "#dc2626", tilt: 7, offset: 1 },
-    { tmdbId: 391713, title: "Lady Bird", fallbackYear: "2017", spine: "#fb7185", tilt: -6, offset: 16 },
-];
 
 const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -65,14 +54,19 @@ const formatReleaseDate = (releaseDate?: string, fallbackYear?: string) => {
 function Movies() {
     const { content, image } = useContent();
     const favoriteMovies = content.movies.favorites;
+    const tmdbShelfMovies: TmdbShelfMovieConfig[] = content.movies.tmdbShelf;
     const [selectedMovieTitle, setSelectedMovieTitle] = useState(favoriteMovies[0]?.title ?? '');
     const selectedMovie = favoriteMovies.find((movie) => movie.title === selectedMovieTitle) ?? favoriteMovies[0];
     const [isFlipped, setIsFlipped] = useState(false);
     const [shelfMovies, setShelfMovies] = useState<ShelfMovie[]>(tmdbShelfMovies);
-    const [selectedShelfMovieId, setSelectedShelfMovieId] = useState(tmdbShelfMovies[0].tmdbId);
+    const [selectedShelfMovieId, setSelectedShelfMovieId] = useState<number | null>(tmdbShelfMovies[0]?.tmdbId ?? null);
     const tmdbApiKey = process.env.REACT_APP_TMDB_API_KEY;
 
     useEffect(() => {
+        setShelfMovies(tmdbShelfMovies);
+        setSelectedShelfMovieId((current) => tmdbShelfMovies.some((movie) => movie.tmdbId === current)
+            ? current : tmdbShelfMovies[0]?.tmdbId ?? null);
+
         if (!tmdbApiKey) {
             return;
         }
@@ -82,28 +76,33 @@ function Movies() {
         const fetchShelfMovies = async () => {
             const movieDetails = await Promise.all(
                 tmdbShelfMovies.map(async (movie) => {
-                    const response = await fetch(
-                        `https://api.themoviedb.org/3/movie/${movie.tmdbId}?api_key=${tmdbApiKey}&append_to_response=credits`,
-                        { signal: controller.signal }
-                    );
+                    try {
+                        const response = await fetch(
+                            `https://api.themoviedb.org/3/movie/${movie.tmdbId}?api_key=${encodeURIComponent(tmdbApiKey)}&append_to_response=credits`,
+                            { signal: controller.signal }
+                        );
 
-                    if (!response.ok) {
+                        if (!response.ok) return movie;
+
+                        const data: TmdbMovieResponse = await response.json();
+                        const director = data.credits?.crew
+                            ?.filter((crewMember) => crewMember.job === "Director")
+                            .map((crewMember) => crewMember.name)
+                            .filter(Boolean)
+                            .join(", ");
+
+                        return {
+                            ...movie,
+                            title: data.title || movie.title,
+                            posterPath: data.poster_path,
+                            releaseDate: data.release_date,
+                            director: director || undefined,
+                        };
+                    } catch (error) {
+                        if (controller.signal.aborted) throw error;
+                        console.error(`Unable to load TMDB movie ${movie.tmdbId}`, error);
                         return movie;
                     }
-
-                    const data: TmdbMovieResponse = await response.json();
-                    const director = data.credits?.crew
-                        ?.filter((crewMember) => crewMember.job === "Director")
-                        .map((crewMember) => crewMember.name)
-                        .filter(Boolean)
-                        .join(", ");
-
-                    return {
-                        ...movie,
-                        posterPath: data.poster_path,
-                        releaseDate: data.release_date,
-                        director: director || undefined,
-                    };
                 })
             );
 
@@ -118,12 +117,9 @@ function Movies() {
         });
 
         return () => controller.abort();
-    }, [tmdbApiKey]);
+    }, [tmdbApiKey, tmdbShelfMovies]);
 
-    const selectedShelfMovie = useMemo(
-        () => shelfMovies.find((movie) => movie.tmdbId === selectedShelfMovieId) ?? shelfMovies[0],
-        [selectedShelfMovieId, shelfMovies]
-    );
+    const selectedShelfMovie = shelfMovies.find((movie) => movie.tmdbId === selectedShelfMovieId) ?? shelfMovies[0];
 
     const handleSelectMovie = (movie: (typeof favoriteMovies)[number]) => {
         setSelectedMovieTitle(movie.title);
@@ -134,7 +130,7 @@ function Movies() {
         setIsFlipped((currentFlipState) => !currentFlipState);
     };
 
-    const selectedShelfPoster = selectedShelfMovie.posterPath ? `${tmdbImageBaseUrl}${selectedShelfMovie.posterPath}` : undefined;
+    const selectedShelfPoster = selectedShelfMovie?.posterPath ? `${tmdbImageBaseUrl}${selectedShelfMovie.posterPath}` : undefined;
 
     return (
         <section className="movies-container" id="movies" aria-labelledby="movies-heading">
@@ -192,7 +188,7 @@ function Movies() {
                 </div>}
             </div>
 
-            <div className="dvd-rack-layout" aria-label="TMDB DVD shelf">
+            {selectedShelfMovie && <div className="dvd-rack-layout" aria-label="TMDB DVD shelf">
                     <div className="dvd-stack">
                         {shelfMovies.map((movie) => {
                             const isSelected = selectedShelfMovie.tmdbId === movie.tmdbId;
@@ -205,6 +201,8 @@ function Movies() {
                                     style={
                                         {
                                             "--dvd-spine": movie.spine,
+                                            "--dvd-tilt": `${movie.tilt ?? 0}deg`,
+                                            "--dvd-offset": `${movie.offset ?? 0}px`,
                                         } as React.CSSProperties
                                     }
                                     type="button"
@@ -239,7 +237,7 @@ function Movies() {
                         </dl>
                     </div>
                 </aside>
-            </div>
+            </div>}
         </section>
     );
 }

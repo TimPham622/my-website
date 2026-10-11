@@ -113,27 +113,27 @@
   "about": {
     "kicker": "A little hello",
     "heading": "About Me",
-    "body": "I am a second year Mathematical and Computer Sciences student studying at the University of Adelaide. With a high interest in mathematics, more specifically decision theory, I hope that my future will be directed into a position where I can utilise my passion for mathematics into industry. I also have a high ambition to study postgraduate Medicine, and wish to attain an interdisciplinary background in both computer science and medicine.",
+    "body": "I am a second year Mathematical and Computer Sciences student studying at the University of Adelaide. With a high interest in mathematics, I hope that my future will be directed into a position where I can utilise my passion for mathematics into industry.",
     "photos": [
       {
-        "label": "Weekend wander",
+        "label": "me with the 2026 EEESAU committee :)",
         "accent": "✦",
-        "image": ""
+        "image": "/media/images/eeesau.webp"
       },
       {
-        "label": "Study snap",
+        "label": "me with the 2026 CS Club Committee :)",
         "accent": "☼",
-        "image": ""
+        "image": "/media/images/cocktail-night.webp"
       },
       {
-        "label": "Coffee corner",
+        "label": "me not beating the allegations",
         "accent": "♡",
-        "image": ""
+        "image": "/media/images/clarity.webp"
       },
       {
-        "label": "Future photo",
+        "label": "my home",
         "accent": "✺",
-        "image": ""
+        "image": "/media/images/adelaidecitycentreview.webp"
       }
     ]
   },
@@ -146,6 +146,16 @@
       "Maths"
     ],
     "events": [
+      {
+        "year": "2026",
+        "title": "Computer Science Club President",
+        "description": "since the start of semester 2, I was given the role of president. it has been a pleasure to be able to be the face of the cs club, and to continue helping students"
+      },
+      {
+        "year": "2026",
+        "title": "rejected, rejected, rejected",
+        "description": "apply to a lot of companies. some make it pass the resume. some made me go do interviews. and then more interviews. and then more interviews. its okay to get rejected"
+      },
       {
         "year": "2025",
         "title": "Started RSP",
@@ -225,7 +235,7 @@
     "listeningHeading": "What I am listening to right now",
     "listeningCopy": "If you also listen to this song, maybe you and I are more alike than you think!",
     "topTracksEyebrow": "Last.fm chart",
-    "topTracksHeading": "Most played in the past 90 days",
+    "topTracksHeading": "Most played in the past {days} days",
     "favoritesEyebrow": "Shelf picks",
     "favoritesHeading": "Four favourite albums",
     "favorites": [
@@ -331,7 +341,12 @@
         "spotifyUrl": "https://open.spotify.com/album/5XGQ4L4XsTI3uIZiAfeAum",
         "cover": ""
       }
-    ]
+    ],
+    "lastFm": {
+      "username": "R8M8D8",
+      "chartDays": 90,
+      "topTracksLimit": 5
+    }
   },
   "movies": {
     "eyebrow": "Rental shelf",
@@ -369,6 +384,80 @@
         "poster": "/media/images/oceans-eleven-poster.webp",
         "spine": "#dc2626",
         "thoughts": "Placeholder thoughts: pure confidence and charm, with the kind of ensemble energy that makes every rewatch easy."
+      }
+    ],
+    "tmdbShelf": [
+      {
+        "tmdbId": 11544,
+        "title": "Lilo & Stitch",
+        "fallbackYear": "2002",
+        "spine": "#0ea5e9",
+        "tilt": -7,
+        "offset": 12
+      },
+      {
+        "tmdbId": 406,
+        "title": "La Haine",
+        "fallbackYear": "1995",
+        "spine": "#111827",
+        "tilt": 5,
+        "offset": 0
+      },
+      {
+        "tmdbId": 545611,
+        "title": "Everything Everywhere All at Once",
+        "fallbackYear": "2022",
+        "spine": "#9333ea",
+        "tilt": -3,
+        "offset": 18
+      },
+      {
+        "tmdbId": 11104,
+        "title": "Chungking Express",
+        "fallbackYear": "1994",
+        "spine": "#f97316",
+        "tilt": 6,
+        "offset": 7
+      },
+      {
+        "tmdbId": 8392,
+        "title": "My Neighbor Totoro",
+        "fallbackYear": "1988",
+        "spine": "#16a34a",
+        "tilt": -5,
+        "offset": 22
+      },
+      {
+        "tmdbId": 84892,
+        "title": "The Perks of Being a Wallflower",
+        "fallbackYear": "2012",
+        "spine": "#facc15",
+        "tilt": 4,
+        "offset": 5
+      },
+      {
+        "tmdbId": 146,
+        "title": "Crouching Tiger, Hidden Dragon",
+        "fallbackYear": "2000",
+        "spine": "#047857",
+        "tilt": -2,
+        "offset": 14
+      },
+      {
+        "tmdbId": 2062,
+        "title": "Ratatouille",
+        "fallbackYear": "2007",
+        "spine": "#dc2626",
+        "tilt": 7,
+        "offset": 1
+      },
+      {
+        "tmdbId": 391713,
+        "title": "Lady Bird",
+        "fallbackYear": "2017",
+        "spine": "#fb7185",
+        "tilt": -6,
+        "offset": 16
       }
     ]
   },

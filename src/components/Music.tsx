@@ -66,7 +66,7 @@ const fallbackTrack: ListeningTrack = {
     isNowPlaying: false,
 };
 
-const ninetyDaysInSeconds = 90 * 24 * 60 * 60;
+const secondsPerDay = 24 * 60 * 60;
 
 function getLargestImage(images?: LastFmImage[]) {
     return images?.slice().reverse().find((image) => image["#text"])?.["#text"] || "";
@@ -87,6 +87,12 @@ function Music() {
     const { music } = content;
     const favoriteAlbums = music.favorites;
     const recommendedAlbums = music.recommendations;
+    const lastFmUsername = music.lastFm.username.trim();
+    const chartDays = Number.isInteger(music.lastFm.chartDays) && music.lastFm.chartDays > 0
+        ? Math.min(music.lastFm.chartDays, 365) : 90;
+    const topTracksLimit = Number.isInteger(music.lastFm.topTracksLimit) && music.lastFm.topTracksLimit > 0
+        ? Math.min(music.lastFm.topTracksLimit, 20) : 5;
+    const lastFmApiKey = process.env.REACT_APP_LASTFM_API_KEY;
     const [selectedAlbum, setSelectedAlbum] = useState<string | null>(favoriteAlbums[0]?.title ?? null);
     const [listeningTrack, setListeningTrack] = useState<ListeningTrack>(fallbackTrack);
     const [topTracks, setTopTracks] = useState<TopTrack[]>([]);
@@ -98,18 +104,17 @@ function Music() {
     }, [favoriteAlbums]);
 
     useEffect(() => {
-        const username = process.env.REACT_APP_LASTFM_USERNAME;
-        const apiKey = process.env.REACT_APP_LASTFM_API_KEY;
-
-        if (!username || !apiKey) {
+        if (!lastFmUsername || !lastFmApiKey) {
+            setListeningTrack(fallbackTrack);
             return;
         }
 
         const controller = new AbortController();
+        setListeningTrack(fallbackTrack);
         const lastFmUrl = buildLastFmUrl({
             method: "user.getrecenttracks",
-            user: username,
-            api_key: apiKey,
+            user: lastFmUsername,
+            api_key: lastFmApiKey,
             limit: "1",
         });
 
@@ -137,25 +142,25 @@ function Music() {
             });
 
         return () => controller.abort();
-    }, []);
+    }, [lastFmUsername, lastFmApiKey]);
 
 
     useEffect(() => {
-        const username = process.env.REACT_APP_LASTFM_USERNAME;
-        const apiKey = process.env.REACT_APP_LASTFM_API_KEY;
-
-        if (!username || !apiKey) {
-            setTopTracksMessage("Connect Last.fm to see your 90-day chart.");
+        if (!lastFmUsername || !lastFmApiKey) {
+            setTopTracks([]);
+            setTopTracksMessage("Connect Last.fm to see your chart.");
             return;
         }
 
         const controller = new AbortController();
+        setTopTracks([]);
+        setTopTracksMessage(`Loading your ${chartDays}-day chart...`);
         const now = Math.floor(Date.now() / 1000);
         const lastFmUrl = buildLastFmUrl({
             method: "user.getweeklytrackchart",
-            user: username,
-            api_key: apiKey,
-            from: String(now - ninetyDaysInSeconds),
+            user: lastFmUsername,
+            api_key: lastFmApiKey,
+            from: String(now - chartDays * secondsPerDay),
             to: String(now),
         });
 
@@ -172,11 +177,11 @@ function Music() {
                     }))
                     .filter((track) => track.title && track.playCount > 0)
                     .sort((trackA, trackB) => trackB.playCount - trackA.playCount)
-                    .slice(0, 5);
+                    .slice(0, topTracksLimit);
 
                 if (!normalizedTracks.length) {
                     setTopTracks([]);
-                    setTopTracksMessage("No scrobbles found in the past 90 days.");
+                    setTopTracksMessage(`No scrobbles found in the past ${chartDays} days.`);
                     return;
                 }
 
@@ -186,7 +191,7 @@ function Music() {
                             method: "track.getInfo",
                             artist: track.artist,
                             track: track.title,
-                            api_key: apiKey,
+                            api_key: lastFmApiKey,
                             autocorrect: "1",
                         });
 
@@ -213,18 +218,16 @@ function Music() {
             })
             .catch((error) => {
                 if (error.name !== "AbortError") {
-                    setTopTracksMessage("Unable to load your 90-day chart right now.");
+                    setTopTracksMessage(`Unable to load your ${chartDays}-day chart right now.`);
                     console.error("Unable to load Last.fm top tracks", error);
                 }
             });
 
         return () => controller.abort();
-    }, []);
+    }, [lastFmUsername, lastFmApiKey, chartDays, topTracksLimit]);
 
     useEffect(() => {
-        const apiKey = process.env.REACT_APP_LASTFM_API_KEY;
-
-        if (!apiKey) {
+        if (!lastFmApiKey) {
             return;
         }
 
@@ -236,7 +239,7 @@ function Music() {
                     method: "album.getinfo",
                     artist: album.artist,
                     album: album.title,
-                    api_key: apiKey,
+                    api_key: lastFmApiKey,
                     autocorrect: "1",
                 });
 
@@ -263,7 +266,7 @@ function Music() {
             });
 
         return () => controller.abort();
-    }, [recommendedAlbums]);
+    }, [recommendedAlbums, lastFmApiKey]);
 
     return (
         <div className="music-container" id="music">
@@ -308,9 +311,9 @@ function Music() {
                     <div className="top-tracks-heading">
                         <div>
                             <p className="eyebrow">{music.topTracksEyebrow}</p>
-                            <h2 id="top-tracks-heading">{music.topTracksHeading}</h2>
+                            <h2 id="top-tracks-heading">{(music.topTracksHeading || 'Most played in the past {days} days').replace(/\{days\}/g, String(chartDays))}</h2>
                         </div>
-                        <span className="top-tracks-badge">Top 5</span>
+                        <span className="top-tracks-badge">Top {topTracksLimit}</span>
                     </div>
 
                     {topTracks.length ? (

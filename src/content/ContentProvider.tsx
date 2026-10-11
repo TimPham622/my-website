@@ -23,7 +23,11 @@ function hasRequiredSections(value: unknown): value is SiteContent {
     Array.isArray(content.hero?.slides) && Array.isArray(content.hero?.quotes) &&
     Array.isArray(content.about?.photos) && Array.isArray(content.timeline?.events) &&
     Array.isArray(content.projects?.items) && Array.isArray(content.music?.favorites) &&
-    Array.isArray(content.music?.recommendations) && Array.isArray(content.movies?.favorites) &&
+    Array.isArray(content.music?.recommendations) &&
+    typeof content.music?.lastFm?.username === 'string' &&
+    Number.isInteger(content.music.lastFm.chartDays) &&
+    Number.isInteger(content.music.lastFm.topTracksLimit) &&
+    Array.isArray(content.movies?.favorites) && Array.isArray(content.movies?.tmdbShelf) &&
     Array.isArray(content.navigation?.items) && content.footer
   );
 }
