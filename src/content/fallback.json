@@ -158,13 +158,6 @@
       },
       {
         "year": "2025",
-        "title": "Started RSP",
-        "place": "Adelaide/Remote",
-        "description": "Participating in a coding bootcamp to enhance my software development skills.",
-        "icon": "code"
-      },
-      {
-        "year": "2025",
         "title": "Computer Science Club Vice President",
         "place": "University of Adelaide",
         "description": "Elected Vice President to over 700+ paid members whilst in my first year.",
@@ -482,6 +475,10 @@
       {
         "label": "Movies",
         "section": "movies"
+      },
+      {
+        "label": "Blog",
+        "section": "blog"
       }
     ]
   },
@@ -489,5 +486,10 @@
     "text": "Built by Tim with love",
     "githubUrl": "https://github.com/TimPham622",
     "linkedinUrl": "https://www.linkedin.com/in/tim-pham-4736101b0/"
+  },
+  "blog": {
+    "heading": "Writing",
+    "subtitle": "Notes and essays",
+    "introduction": "A collection of my writing about mathematics, computer science, music, films, and anything else that interests me.\n\nSometimes these are technical explanations. Other times, they're simply thoughts I wanted to write down."
   }
 }

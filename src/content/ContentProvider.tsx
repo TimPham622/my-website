@@ -28,7 +28,8 @@ function hasRequiredSections(value: unknown): value is SiteContent {
     Number.isInteger(content.music.lastFm.chartDays) &&
     Number.isInteger(content.music.lastFm.topTracksLimit) &&
     Array.isArray(content.movies?.favorites) && Array.isArray(content.movies?.tmdbShelf) &&
-    Array.isArray(content.navigation?.items) && content.footer
+    Array.isArray(content.navigation?.items) && content.footer &&
+    typeof content.blog?.heading === 'string'
   );
 }
 

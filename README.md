@@ -1,54 +1,32 @@
-# My Website
+# My website
 
-The editable portfolio content lives in the separate [CMS repository](https://github.com/TimPham622/cms). Pages CMS publishes its images and `site.json` to GitHub Pages. This React app fetches that content when the page loads, so editing content does not require rebuilding this repository. If the content site is unavailable, the app uses its bundled initial snapshot.
+The homepage is a React and TypeScript portfolio. [Pages CMS](https://github.com/TimPham622/cms) edits its sections, images, and Markdown blog. The homepage fetches `site.json` on load, with a bundled content snapshot if the CMS feed is temporarily unavailable.
 
 ## Setup
 
-1. Install Node.js and npm.
-2. Install project dependencies:
+Use Node.js 22 or later. Run `npm ci`, then copy `.env.example` to `.env.local` and set `REACT_APP_LASTFM_API_KEY` and `REACT_APP_TMDB_API_KEY` for the live music and movie widgets. Start the development server with `npm start`.
 
-    ```bash
-    npm install
-    ```
+`REACT_APP_CMS_BASE_URL` defaults to `https://timpham622.github.io/cms`. The public Last.fm account and chart settings, TMDB DVD shelf, and other section content are edited in Pages CMS. Browser-side API keys are visible in the built JavaScript; treat them as public client keys and apply provider restrictions where available.
 
-3. Create a local environment file for the Last.fm and TMDB live widgets:
+## Blog build and URLs
 
-    ```bash
-    cp .env.example .env.local
-    ```
+The blog index is `/my-website/blog/`; each published post has `/my-website/blog/<slug>/`. GitHub Pages serves real `index.html` files for direct visits and refreshes. The CMS build renders Markdown, LaTeX, tables, code, and footnotes into sanitized HTML. This repository's `scripts/sync-blog.mjs` writes the blog pages using the compiled React HTML template, including static article content, title, description, canonical link, and social metadata. React takes over for theme control and tag filtering. The article data and static pages contain only published posts.
 
-    Then set these variables in `.env.local`:
+The blog uses the same navigation bar as the homepage, with a separate editorial layout. The theme choice is saved in localStorage across pages. Homepage section links from an article return to the corresponding homepage section.
 
-    ```bash
-    REACT_APP_LASTFM_API_KEY=your-lastfm-api-key
-    REACT_APP_TMDB_API_KEY=your-tmdb-api-key
-    ```
+`npm run build` builds the React app and syncs the latest [published CMS blog feed](https://timpham622.github.io/cms/blog/index.json). For a local CMS checkout, set `CMS_BLOG_SOURCE=/absolute/path/to/cms/dist/blog` when running the build. `CMS_BLOG_URL` can override the remote feed URL. The build fails if the feed is unavailable, preventing an incomplete deployment.
 
-   `REACT_APP_CMS_BASE_URL` defaults to `https://timpham622.github.io/cms`. Set it to another URL to test a different CMS deployment.
+The CMS publishing workflow normally updates just the blog files on the deployed website's `gh-pages` branch after every CMS change, without rebuilding the React app. To enable that cross-repository update, configure the `WEBSITE_PUBLISH_TOKEN` secret in the CMS repository as described in its README. Without that token, the CMS feed updates but static website blog pages wait for a manual website deployment or workflow rerun after adding the secret.
 
-   The public Last.fm username, chart period, chart size, and TMDB DVD shelf are edited in Pages CMS. API keys stay in the build environment and are never stored in CMS content. Since this is a browser-only site, build-time API keys are visible to visitors in the compiled JavaScript.
+## Deploy and test
 
-4. Start the development server:
+The website's GitHub Pages source is the `gh-pages` branch. With the existing `.env.local` values in place, run:
 
-    ```bash
-    npm start
-    ```
+```bash
+npm ci
+npm run build
+npm test -- --watch=false
+npm run deploy
+```
 
-5. Open [http://localhost:3000](http://localhost:3000).
-
-## Deployment
-
-1. Confirm `homepage` in `package.json` matches the GitHub Pages URL for this repo.
-2. Build the production app:
-
-    ```bash
-    npm run build
-    ```
-
-3. Deploy to GitHub Pages:
-
-    ```bash
-    npm run deploy
-    ```
-
-After this version of the website is deployed once, normal content edits are made through [Pages CMS](https://pagescms.org/) in the `cms` repository. Its workflow updates the content site automatically; this website reads the new content on the next visit.
+The website build uses `gh-pages` to publish the `build/` directory. The CMS workflow then keeps the article files current. Avoid manually editing generated `build/blog` or `gh-pages/blog` files; the next CMS run regenerates them.

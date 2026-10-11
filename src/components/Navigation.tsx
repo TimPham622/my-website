@@ -20,9 +20,10 @@ import { useContent } from '../content/ContentProvider';
 const drawerWidth = 240;
 const NAV_OFFSET = 78;
 
-function Navigation({parentToChild, modeChange}: any) {
+function Navigation({parentToChild, modeChange, isBlogPage = false}: any) {
   const { content } = useContent();
   const navItems = content.navigation.items;
+  const siteBase = process.env.PUBLIC_URL || (window.location.pathname.startsWith('/my-website') ? '/my-website' : '');
 
   const {mode} = parentToChild;
 
@@ -59,6 +60,16 @@ function Navigation({parentToChild, modeChange}: any) {
     }
   };
 
+  const navHref = (section: string) => section === 'blog'
+    ? `${siteBase}/blog/`
+    : isBlogPage ? `${siteBase}/#${section}` : `#${section}`;
+
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, section: string) => {
+    if (section === 'blog' || isBlogPage) return;
+    event.preventDefault();
+    scrollToSection(section);
+  };
+
   const drawer = (
     <Box className="navigation-bar-responsive" onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <p className="mobile-menu-top"><ListIcon/>Menu</p>
@@ -68,12 +79,9 @@ function Navigation({parentToChild, modeChange}: any) {
           <ListItem key={item.section} disablePadding>
             <ListItemButton
               component="a"
-              href={`#${item.section}`}
+              href={navHref(item.section)}
               sx={{ textAlign: 'center' }}
-              onClick={(event) => {
-                event.preventDefault();
-                scrollToSection(item.section);
-              }}
+              onClick={(event) => handleNavClick(event, item.section)}
             >
               <ListItemText primary={item.label} />
             </ListItemButton>
@@ -93,7 +101,7 @@ function Navigation({parentToChild, modeChange}: any) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -105,15 +113,12 @@ function Navigation({parentToChild, modeChange}: any) {
           >
             {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             {navItems.map((item) => (
               <Button
                 key={item.section}
-                href={`#${item.section}`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  scrollToSection(item.section);
-                }}
+                href={navHref(item.section)}
+                onClick={(event) => handleNavClick(event, item.section)}
               >
                 {item.label}
               </Button>
@@ -130,7 +135,7 @@ function Navigation({parentToChild, modeChange}: any) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', md: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
