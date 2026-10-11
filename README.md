@@ -1,5 +1,7 @@
 # My Website
 
+The editable portfolio content lives in the separate [CMS repository](https://github.com/TimPham622/cms). Pages CMS publishes its images and `site.json` to GitHub Pages. This React app fetches that content when the page loads, so editing content does not require rebuilding this repository. If the content site is unavailable, the app uses its bundled initial snapshot.
+
 ## Setup
 
 1. Install Node.js and npm.
@@ -21,6 +23,8 @@
     REACT_APP_LASTFM_USERNAME=your-lastfm-username
     REACT_APP_LASTFM_API_KEY=your-lastfm-api-key
     ```
+
+   `REACT_APP_CMS_BASE_URL` defaults to `https://timpham622.github.io/cms`. Set it to another URL to test a different CMS deployment.
 
 4. Start the development server:
 
@@ -44,3 +48,5 @@
     ```bash
     npm run deploy
     ```
+
+After this version of the website is deployed once, normal content edits are made through [Pages CMS](https://pagescms.org/) in the `cms` repository. Its workflow updates the content site automatically; this website reads the new content on the next visit.

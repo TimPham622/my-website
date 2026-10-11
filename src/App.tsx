@@ -10,6 +10,7 @@ import {
   Footer,
 } from "./components";
 import FadeIn from './components/FadeIn';
+import { ContentProvider } from './content/ContentProvider';
 import './index.scss';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       }, []);
 
     return (
+    <ContentProvider>
     <div className={`main-container ${mode === 'dark' ? 'dark-mode' : 'light-mode'}`}>
         <Navigation parentToChild={{mode}} modeChange={handleModeChange}/>
         <FadeIn transitionDuration={700}>
@@ -40,6 +42,7 @@ function App() {
         </FadeIn>
         <Footer />
     </div>
+    </ContentProvider>
     );
 }
 

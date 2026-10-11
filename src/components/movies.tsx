@@ -1,18 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "../assets/styles/movies.scss";
-import oceansElevenPoster from "../assets/images/oceans-eleven-poster.webp";
-import socialNetworkPoster from "../assets/images/the-social-network-poster.webp";
-import whisperOfTheHeartPoster from "../assets/images/whisper-of-the-heart-poster.webp";
-import yourNamePoster from "../assets/images/your-name-poster.webp";
-
-type FavoriteMovie = {
-    title: string;
-    year: string;
-    format: string;
-    poster: string;
-    spine: string;
-    thoughts: string;
-};
+import { useContent } from '../content/ContentProvider';
 
 type TmdbShelfMovieConfig = {
     tmdbId: number;
@@ -39,41 +27,6 @@ type TmdbMovieResponse = {
         }>;
     };
 };
-
-const favoriteMovies: FavoriteMovie[] = [
-    {
-        title: "The Social Network",
-        year: "2010",
-        format: "DVD",
-        poster: socialNetworkPoster,
-        spine: "#2563eb",
-        thoughts: "Placeholder thoughts: sharp, restless, and endlessly rewatchable because every scene feels like a perfect argument.",
-    },
-    {
-        title: "Whisper of the Heart",
-        year: "1995",
-        format: "VHS",
-        poster: whisperOfTheHeartPoster,
-        spine: "#16a34a",
-        thoughts: "Placeholder thoughts: a warm reminder to chase craft seriously while still leaving room for wonder.",
-    },
-    {
-        title: "Your Name",
-        year: "2016",
-        format: "Blu-ray",
-        poster: yourNamePoster,
-        spine: "#7c3aed",
-        thoughts: "Placeholder thoughts: romantic, cosmic, and emotionally huge in the way only a perfect sky can feel.",
-    },
-    {
-        title: "Ocean's Eleven",
-        year: "2001",
-        format: "DVD",
-        poster: oceansElevenPoster,
-        spine: "#dc2626",
-        thoughts: "Placeholder thoughts: pure confidence and charm, with the kind of ensemble energy that makes every rewatch easy.",
-    },
-];
 
 const tmdbShelfMovies: TmdbShelfMovieConfig[] = [
     { tmdbId: 11544, title: "Lilo & Stitch", fallbackYear: "2002", spine: "#0ea5e9", tilt: -7, offset: 12 },
@@ -110,7 +63,10 @@ const formatReleaseDate = (releaseDate?: string, fallbackYear?: string) => {
 };
 
 function Movies() {
-    const [selectedMovie, setSelectedMovie] = useState<FavoriteMovie>(favoriteMovies[0]);
+    const { content, image } = useContent();
+    const favoriteMovies = content.movies.favorites;
+    const [selectedMovieTitle, setSelectedMovieTitle] = useState(favoriteMovies[0]?.title ?? '');
+    const selectedMovie = favoriteMovies.find((movie) => movie.title === selectedMovieTitle) ?? favoriteMovies[0];
     const [isFlipped, setIsFlipped] = useState(false);
     const [shelfMovies, setShelfMovies] = useState<ShelfMovie[]>(tmdbShelfMovies);
     const [selectedShelfMovieId, setSelectedShelfMovieId] = useState(tmdbShelfMovies[0].tmdbId);
@@ -169,8 +125,8 @@ function Movies() {
         [selectedShelfMovieId, shelfMovies]
     );
 
-    const handleSelectMovie = (movie: FavoriteMovie) => {
-        setSelectedMovie(movie);
+    const handleSelectMovie = (movie: (typeof favoriteMovies)[number]) => {
+        setSelectedMovieTitle(movie.title);
         setIsFlipped(false);
     };
 
@@ -183,18 +139,15 @@ function Movies() {
     return (
         <section className="movies-container" id="movies" aria-labelledby="movies-heading">
             <div className="movies-copy">
-                <p className="eyebrow">Rental shelf</p>
-                <h1 id="movies-heading">Favourite movies</h1>
-                <p>
-                Movies have also defined my life, where I tackled a similar project where I watched a movie every 
-                day for around 2-3 years. Here are my favourites!
-                </p>
+                <p className="eyebrow">{content.movies.eyebrow}</p>
+                <h1 id="movies-heading">{content.movies.heading}</h1>
+                <p>{content.movies.intro}</p>
             </div>
 
             <div className="movie-rental-layout">
                 <div className="movie-shelf" aria-label="Favourite movie shelf">
                     {favoriteMovies.map((movie) => {
-                        const isSelected = selectedMovie.title === movie.title;
+                        const isSelected = selectedMovie?.title === movie.title;
 
                         return (
                             <button
@@ -203,7 +156,7 @@ function Movies() {
                                 onClick={() => handleSelectMovie(movie)}
                                 style={{
                                     "--movie-spine": movie.spine,
-                                    "--movie-poster": `url(${movie.poster})`,
+                                    "--movie-poster": `url(${image(movie.poster)})`,
                                 } as React.CSSProperties}
                                 type="button"
                                 aria-pressed={isSelected}
@@ -215,7 +168,7 @@ function Movies() {
                     })}
                 </div>
 
-                <div className="movie-detail-panel" aria-live="polite">
+                {selectedMovie && <div className="movie-detail-panel" aria-live="polite">
                     <button
                         className={`movie-case ${isFlipped ? "is-flipped" : ""}`}
                         onClick={handleFlip}
@@ -224,7 +177,7 @@ function Movies() {
                     >
                         <span className="movie-case-inner">
                             <span className="movie-case-face movie-case-front">
-                                <img src={selectedMovie.poster} alt={`${selectedMovie.title} poster`} />
+                                <img src={image(selectedMovie.poster)} alt={`${selectedMovie.title} poster`} />
                                 <span className="movie-case-title">{selectedMovie.title}</span>
                                 <span className="movie-case-meta">{selectedMovie.year} • {selectedMovie.format}</span>
                             </span>
@@ -236,7 +189,7 @@ function Movies() {
                         </span>
                     </button>
                     <p className="movie-flip-hint">Tap or click the case to flip it.</p>
-                </div>
+                </div>}
             </div>
 
             <div className="dvd-rack-layout" aria-label="TMDB DVD shelf">

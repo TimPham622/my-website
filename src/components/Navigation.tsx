@@ -15,24 +15,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
+import { useContent } from '../content/ContentProvider';
 
 const drawerWidth = 240;
 const NAV_OFFSET = 78;
 
-type NavItem = {
-  label: string;
-  section: string;
-};
-
-const navItems: NavItem[] = [
-  { label: 'About me', section: 'about-me' },
-  { label: 'My Life', section: 'history' },
-  { label: 'Projects', section: 'projects' },
-  { label: 'Music', section: 'music' },
-  { label: 'Movies', section: 'movies' },
-];
-
 function Navigation({parentToChild, modeChange}: any) {
+  const { content } = useContent();
+  const navItems = content.navigation.items;
 
   const {mode} = parentToChild;
 

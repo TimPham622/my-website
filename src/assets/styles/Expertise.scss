@@ -182,6 +182,15 @@
         linear-gradient(135deg, transparent 53%, rgba(39, 27, 66, 0.28) 54% 61%, transparent 62%);
 }
 
+.about-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
 .photo-label {
     position: absolute;
     bottom: -2.05rem;

@@ -1,0 +1,404 @@
+{
+  "hero": {
+    "kicker": "Now showing",
+    "heading": "Hello, I'm Tim ☺",
+    "portrait": "/media/images/tim-pham.webp",
+    "githubUrl": "https://github.com/TimPham622",
+    "linkedinUrl": "https://www.linkedin.com/in/tim-pham-4736101b0/",
+    "slides": [
+      {
+        "label": "Chungking Express",
+        "image": "/media/images/chungking-express.webp"
+      },
+      {
+        "label": "WALL-E",
+        "image": "/media/images/wall-e.webp"
+      },
+      {
+        "label": "Yi Yi",
+        "image": "/media/images/yi-yi.webp"
+      },
+      {
+        "label": "La Haine",
+        "image": "/media/images/la-haine.webp"
+      },
+      {
+        "label": "Your Name",
+        "image": "/media/images/your-name-big.webp"
+      },
+      {
+        "label": "Past Lives",
+        "image": "/media/images/past-lives.webp"
+      },
+      {
+        "label": "Ponyo",
+        "image": "/media/images/ponyo.webp"
+      }
+    ],
+    "quotes": [
+      {
+        "text": "Just be a rock.",
+        "attribution": "Everything Everywhere All at Once"
+      },
+      {
+        "text": "You don't get to 500 million friends without making a few enemies.",
+        "attribution": "The Social Network"
+      },
+      {
+        "text": "I wanted to tell you that wherever you are, I'll come find you.",
+        "attribution": "Your Name"
+      },
+      {
+        "text": "If memories ever come in a can, I hope that can never expires.",
+        "attribution": "Chungking Express"
+      },
+      {
+        "text": "We brush past so many other people every day.",
+        "attribution": "Chungking Express"
+      },
+      {
+        "text": "Love is a matter of timing.",
+        "attribution": "In the Mood for Love"
+      },
+      {
+        "text": "Never ask for the meaning of life.",
+        "attribution": "Yi Yi"
+      },
+      {
+        "text": "So far, so good.",
+        "attribution": "La Haine"
+      },
+      {
+        "text": "Not everyone can become a great artist, but a great artist can come from anywhere.",
+        "attribution": "Ratatouille"
+      },
+      {
+        "text": "You better start walking; Love takes miles",
+        "attribution": "Love Takes Miles — Cameron Winter"
+      },
+      {
+        "text": "Control yourself. Take only what you need from it.",
+        "attribution": "Kids — MGMT"
+      },
+      {
+        "text": "To call for hands of above to lean on, wouldn't be good enough for me? No.",
+        "attribution": "Heartbeats — The Knife"
+      },
+      {
+        "text": "Love is watching someone die.",
+        "attribution": "What Sarah Said — Death Cab for Cutie"
+      },
+      {
+        "text": "Wait. They don't love you like I love you.",
+        "attribution": "Maps — Yeah Yeah Yeahs"
+      },
+      {
+        "text": "If I could see all my friends tonight.",
+        "attribution": "All My Friends — LCD Soundsystem"
+      },
+      {
+        "text": "I hate you for what you did. And I miss you like a little kid.",
+        "attribution": "Motion Sickness — Phoebe Bridgers"
+      },
+      {
+        "text": "And I know it doesn't last, but I don't mind at all anymore",
+        "attribution": "Musician — Porter Robinson"
+      },
+      {
+        "text": "Don't you realize our bodies could fall apart any second?",
+        "attribution": "Bodys — Car Seat Headrest"
+      }
+    ]
+  },
+  "about": {
+    "kicker": "A little hello",
+    "heading": "About Me",
+    "body": "I am a second year Mathematical and Computer Sciences student studying at the University of Adelaide. With a high interest in mathematics, more specifically decision theory, I hope that my future will be directed into a position where I can utilise my passion for mathematics into industry. I also have a high ambition to study postgraduate Medicine, and wish to attain an interdisciplinary background in both computer science and medicine.",
+    "photos": [
+      {
+        "label": "Weekend wander",
+        "accent": "✦",
+        "image": ""
+      },
+      {
+        "label": "Study snap",
+        "accent": "☼",
+        "image": ""
+      },
+      {
+        "label": "Coffee corner",
+        "accent": "♡",
+        "image": ""
+      },
+      {
+        "label": "Future photo",
+        "accent": "✺",
+        "image": ""
+      }
+    ]
+  },
+  "timeline": {
+    "heading": "About my Life!",
+    "intro": "A compact timeline of the moments that shaped what I am building, learning, and leading right now.",
+    "collage": [
+      "Adelaide",
+      "Code",
+      "Maths"
+    ],
+    "events": [
+      {
+        "year": "2025",
+        "title": "Started RSP",
+        "place": "Adelaide/Remote",
+        "description": "Participating in a coding bootcamp to enhance my software development skills.",
+        "icon": "code"
+      },
+      {
+        "year": "2025",
+        "title": "Computer Science Club Vice President",
+        "place": "University of Adelaide",
+        "description": "Elected Vice President to over 700+ paid members whilst in my first year.",
+        "icon": "users"
+      },
+      {
+        "year": "2025",
+        "title": "Started my University Education",
+        "place": "University of Adelaide",
+        "description": "Commenced my degree in Mathematics and Computer Science.",
+        "icon": "graduationCap"
+      },
+      {
+        "year": "2024",
+        "title": "Graduated Year 12 with a SACE certificate",
+        "place": "Adelaide High School",
+        "description": "99.20 ATAR, Merit in Research Project and A+ in Specialist Mathematics, and Mathematical Methods.",
+        "icon": "briefcase"
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Selected builds / quick scan",
+    "heading": "Personal Projects",
+    "intro": "Here is a list of some of my favourite personal projects that I have done since the start of Uni. I tried to tackle a different language each time, and prioritised my interests.",
+    "items": [
+      {
+        "title": "Fourier Playground",
+        "href": "https://github.com/TimPham622/Fourier-Transform",
+        "image": "/media/images/fourier-playground.webp",
+        "tags": [
+          "C++",
+          "FFT",
+          "Audio"
+        ],
+        "description": "A C++ project which utilises one of my favourite concepts in mathematics, the Fourier Transform. This project implements both the Discrete Fourier Transform (DFT) for vector drawing reconstruction and the Fast Fourier Transform (FFT) for real-time audio analysis."
+      },
+      {
+        "title": "2026 Academy Awards Predictor",
+        "href": "https://github.com/TimPham622/oscars-prediction",
+        "image": "/media/images/academy-awards-predictor.webp",
+        "tags": [
+          "Python",
+          "Pandas",
+          "Monte Carlo"
+        ],
+        "description": "Developed a data science project to accurately predict the outcome of the 2026 Academy Awards using python and pandas, whilst also developing statistical methods such as Monte Carlo Simulations and Devigging."
+      },
+      {
+        "title": "Susquehanna Algothon",
+        "href": "https://github.com/TimPham622/algothon",
+        "image": "/media/images/susquehanna-algothon.webp",
+        "tags": [
+          "Trading",
+          "Python",
+          "Sharpe"
+        ],
+        "description": "Participated to build a sophisticated trading algorithm in Python designed to maximize profits in a simulated trading environment, with the goal to have the most optimal Sharpe ratio."
+      }
+    ]
+  },
+  "music": {
+    "heading": "Music",
+    "blurbEyebrow": "Why music matters",
+    "blurbHeading": "A stream for getting creative",
+    "blurb": "Music is the most treasured part of my life. It's primarily the stream on how I get creative. Ever since high school, I have been deeply interested in discovering new music from a wild range of artists, where I used to do a project where I tried to listen to a new album every day for around 3-4 years, and it was amazing. Below are music recommendations I have for you, where I believe it has defined who I am.",
+    "listeningEyebrow": "On repeat",
+    "listeningHeading": "What I am listening to right now",
+    "listeningCopy": "If you also listen to this song, maybe you and I are more alike than you think!",
+    "topTracksEyebrow": "Last.fm chart",
+    "topTracksHeading": "Most played in the past 90 days",
+    "favoritesEyebrow": "Shelf picks",
+    "favoritesHeading": "Four favourite albums",
+    "favorites": [
+      {
+        "title": "Nurture",
+        "artist": "Porter Robinson",
+        "accent": "#139220",
+        "cover": "/media/images/nurture-album-cover.webp",
+        "thoughts": "Placeholder thoughts: this album feels like sunlight breaking through after a long storm."
+      },
+      {
+        "title": "Red",
+        "artist": "Taylor Swift",
+        "accent": "#ac1d45",
+        "cover": "/media/images/red-album-cover.webp",
+        "thoughts": "Placeholder thoughts: a classic heart-on-sleeve record full of big feelings and sharper memories."
+      },
+      {
+        "title": "Time 'n' Place",
+        "artist": "Kero Kero Bonito",
+        "accent": "#a135a5",
+        "cover": "/media/images/time-n-place-album-cover.webp",
+        "thoughts": "Placeholder thoughts: playful, bittersweet, and packed with sounds that make growing up feel surreal."
+      },
+      {
+        "title": "Melodrama",
+        "artist": "Lorde",
+        "accent": "#0638bc",
+        "cover": "/media/images/melodrama-album-cover.webp",
+        "thoughts": "Placeholder thoughts: this is late-night pop drama with every emotion turned into neon."
+      }
+    ],
+    "recommendationsEyebrow": "Recommended listens",
+    "recommendationsHeading": "Ten more albums to try",
+    "recommendations": [
+      {
+        "title": "Give Up",
+        "artist": "The Postal Service",
+        "mood": "Glitchy electronic sounds, under a backdrop of rather pessimistic themes",
+        "spotifyUrl": "https://open.spotify.com/album/1BSwkKATGVCMgNuN8ve7mz",
+        "cover": ""
+      },
+      {
+        "title": "Discovery",
+        "artist": "Daft Punk",
+        "mood": "Dance music perfection",
+        "spotifyUrl": "https://open.spotify.com/album/2noRn2Aes5aoNVsU6iWThc",
+        "cover": ""
+      },
+      {
+        "title": "Modern Vampires of the City",
+        "artist": "Vampire Weekend",
+        "mood": "A fun indie pop album, with everything feeling studious and creative.",
+        "spotifyUrl": "https://open.spotify.com/album/2Qi2SySN2ePZwMLDSv9Krn",
+        "cover": ""
+      },
+      {
+        "title": "To See the Next Part of the Dream",
+        "artist": "Parannoul",
+        "mood": "My favourite album cover, whilst having some hazy Korean-shoegaze sounds",
+        "spotifyUrl": "https://open.spotify.com/album/5IyHtkKQvafw7bQYFnx4FO",
+        "cover": ""
+      },
+      {
+        "title": "A Brief Inquiry Into Online Relationships",
+        "artist": "The 1975",
+        "mood": "Pop maximalism",
+        "spotifyUrl": "https://open.spotify.com/album/6eeQNgCWx0t3vDPCYSxp7I",
+        "cover": ""
+      },
+      {
+        "title": "Sound of Silver",
+        "artist": "LCD Soundsystem",
+        "mood": "Where are your friends tonight?",
+        "spotifyUrl": "https://open.spotify.com/album/1R8kkopLT4IAxzMMkjic6X",
+        "cover": ""
+      },
+      {
+        "title": "American Football",
+        "artist": "American Football",
+        "mood": "An autumn album, with the most emo sounds",
+        "spotifyUrl": "https://open.spotify.com/album/70OkRXiiwdTCtZ9YiPBzPp",
+        "cover": ""
+      },
+      {
+        "title": "Take Care",
+        "artist": "Drake",
+        "mood": "A gem of its time all while handling what fame is like",
+        "spotifyUrl": "https://open.spotify.com/album/6X1x82kppWZmDzlXXK3y3q",
+        "cover": ""
+      },
+      {
+        "title": "For Lovers",
+        "artist": "Lamp",
+        "mood": "Simple and fun.",
+        "spotifyUrl": "https://open.spotify.com/album/0gwS2D9sukMLXNvleEnYr2",
+        "cover": ""
+      },
+      {
+        "title": "Transatlanticism",
+        "artist": "Death Cab for Cutie",
+        "mood": "Long-distance longing stretched into a classic indie record.",
+        "spotifyUrl": "https://open.spotify.com/album/5XGQ4L4XsTI3uIZiAfeAum",
+        "cover": ""
+      }
+    ]
+  },
+  "movies": {
+    "eyebrow": "Rental shelf",
+    "heading": "Favourite movies",
+    "intro": "Movies have also defined my life, where I tackled a similar project where I watched a movie every day for around 2-3 years. Here are my favourites!",
+    "favorites": [
+      {
+        "title": "The Social Network",
+        "year": "2010",
+        "format": "DVD",
+        "poster": "/media/images/the-social-network-poster.webp",
+        "spine": "#2563eb",
+        "thoughts": "Placeholder thoughts: sharp, restless, and endlessly rewatchable because every scene feels like a perfect argument."
+      },
+      {
+        "title": "Whisper of the Heart",
+        "year": "1995",
+        "format": "VHS",
+        "poster": "/media/images/whisper-of-the-heart-poster.webp",
+        "spine": "#16a34a",
+        "thoughts": "Placeholder thoughts: a warm reminder to chase craft seriously while still leaving room for wonder."
+      },
+      {
+        "title": "Your Name",
+        "year": "2016",
+        "format": "Blu-ray",
+        "poster": "/media/images/your-name-poster.webp",
+        "spine": "#7c3aed",
+        "thoughts": "Placeholder thoughts: romantic, cosmic, and emotionally huge in the way only a perfect sky can feel."
+      },
+      {
+        "title": "Ocean's Eleven",
+        "year": "2001",
+        "format": "DVD",
+        "poster": "/media/images/oceans-eleven-poster.webp",
+        "spine": "#dc2626",
+        "thoughts": "Placeholder thoughts: pure confidence and charm, with the kind of ensemble energy that makes every rewatch easy."
+      }
+    ]
+  },
+  "navigation": {
+    "items": [
+      {
+        "label": "About me",
+        "section": "about-me"
+      },
+      {
+        "label": "My Life",
+        "section": "history"
+      },
+      {
+        "label": "Projects",
+        "section": "projects"
+      },
+      {
+        "label": "Music",
+        "section": "music"
+      },
+      {
+        "label": "Movies",
+        "section": "movies"
+      }
+    ]
+  },
+  "footer": {
+    "text": "Built by Tim with love",
+    "githubUrl": "https://github.com/TimPham622",
+    "linkedinUrl": "https://www.linkedin.com/in/tim-pham-4736101b0/"
+  }
+}
