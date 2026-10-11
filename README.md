@@ -18,6 +18,14 @@ The blog uses the same navigation bar as the homepage, with a separate editorial
 
 The CMS publishing workflow normally updates just the blog files on the deployed website's `gh-pages` branch after every CMS change, without rebuilding the React app. To enable that cross-repository update, configure the `WEBSITE_PUBLISH_TOKEN` secret in the CMS repository as described in its README. Without that token, the CMS feed updates but static website blog pages wait for a manual website deployment or workflow rerun after adding the secret.
 
+## Sitemap
+
+`scripts/sync-blog.mjs` generates `/sitemap.xml` alongside the static blog pages. It always includes the homepage and blog index, plus each published article with a validated `updated` date (or `date` when no valid update date exists). Drafts have no public article page or sitemap entry. The old hand-edited `public/sitemap.xml` was removed; both `npm run build` and CMS-triggered publication now use this one generator. A normal website build reads the current CMS blog feed before deployment, so it does not retain a stale static sitemap.
+
+The deployed sitemap is [https://timpham622.github.io/my-website/sitemap.xml](https://timpham622.github.io/my-website/sitemap.xml). `public/robots.txt` references it while preserving crawler access. Because this project lives under `/my-website/`, that file is served below the host root and is only a supplementary discovery hint. Submit the full sitemap URL directly in **Google Search Console → Sitemaps → Add a new sitemap → sitemap.xml → Submit**. Google can revisit it as articles change; routine posts do not require resubmission.
+
+To verify a CMS update, publish a post, wait for **Publish CMS content** to succeed, and check that its URL appears in the live sitemap. Unpublish the post and verify the URL disappears after the next successful workflow. The same workflow commits `blog/` and `sitemap.xml` together to `gh-pages`.
+
 ## Deploy and test
 
 The website's GitHub Pages source is the `gh-pages` branch. With the existing `.env.local` values in place, run:

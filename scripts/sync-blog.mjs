@@ -1,6 +1,7 @@
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { sitemapXml, validSitemapDate } from './sitemap-xml.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const options = new Map();
@@ -17,8 +18,11 @@ const site = path.resolve(options.get('--site') || process.env.BUILD_PATH || pat
 const sourceDirectory = options.get('--source') || process.env.CMS_BLOG_SOURCE;
 const source = sourceDirectory ? path.resolve(sourceDirectory) : null;
 const cmsBlogUrl = (process.env.CMS_BLOG_URL || 'https://timpham622.github.io/cms/blog').replace(/\/$/, '');
+const feedRevision = Date.now().toString();
 const siteUrl = 'https://timpham622.github.io/my-website';
 const blogPath = '/my-website/blog';
+const homepageUrl = `${siteUrl}/`;
+const blogUrl = `${siteUrl}/blog/`;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -27,9 +31,11 @@ function escapeHtml(value) {
 }
 
 function dateLabel(value) {
+  const date = validSitemapDate(value);
+  if (!date) return '';
   return new Intl.DateTimeFormat('en-AU', {
     day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-  }).format(new Date(`${value}T00:00:00Z`));
+  }).format(new Date(`${date}T00:00:00Z`));
 }
 
 function tagsMarkup(tags) {
@@ -38,6 +44,10 @@ function tagsMarkup(tags) {
 
 function postHref(slug) {
   return `${blogPath}/${slug}/`;
+}
+
+function articleUrl(slug) {
+  return `${siteUrl}/blog/${slug}/`;
 }
 
 function articleListing(post) {
@@ -100,7 +110,11 @@ function pageHtml(template, { title, description, url, coverUrl, body, article, 
     `<meta name="twitter:card" content="${coverUrl ? 'summary_large_image' : 'summary'}">`,
     ...(coverUrl ? [`<meta property="og:image" content="${escapeHtml(coverUrl)}">`] : []),
   ];
-  const withTitle = template.replace(/<title>[^<]*<\/title>/i, `<title>${escapedTitle}</title>`);
+  const withoutHomepageMetadata = template
+    .replace(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, '')
+    .replace(/<meta\b(?=[^>]*\bproperty=["']og:(?:type|title|description|url|image)["'])[^>]*>/gi, '')
+    .replace(/<meta\b(?=[^>]*\bname=["']twitter:card["'])[^>]*>/gi, '');
+  const withTitle = withoutHomepageMetadata.replace(/<title>[^<]*<\/title>/i, `<title>${escapedTitle}</title>`);
   const withDescription = withTitle.replace(/<meta\s+name="description"[^>]*>/i,
     `<meta name="description" content="${escapedDescription}">`);
   const withMetadata = withDescription.replace('</head>', `${tags.join('')}\n</head>`);
@@ -115,7 +129,9 @@ function pageHtml(template, { title, description, url, coverUrl, body, article, 
 
 async function readJson(relative) {
   if (source) return JSON.parse(await readFile(path.join(source, relative), 'utf8'));
-  const response = await fetch(`${cmsBlogUrl}/${relative}`, { cache: 'no-store' });
+  const url = new URL(`${cmsBlogUrl}/${relative}`);
+  url.searchParams.set('build', feedRevision);
+  const response = await fetch(url, { cache: 'no-store' });
   if (!response.ok) throw new Error(`CMS blog feed returned ${response.status} for ${relative}`);
   return response.json();
 }
@@ -143,17 +159,23 @@ await mkdir(path.join(blogOutput, 'posts'), { recursive: true });
 await writeFile(path.join(blogOutput, 'index.json'), `${JSON.stringify(index)}\n`);
 await writeFile(path.join(blogOutput, 'index.html'), pageHtml(template, {
   title: index.heading, description: index.posts.length ? index.posts[0].summary : index.subtitle || 'Writing by Tim Pham',
-  url: `${siteUrl}/blog/`, body: indexMarkup(index), article: false, data: { index },
+  url: blogUrl, body: indexMarkup(index), article: false, data: { index },
 }));
 
 for (const [position, post] of posts.entries()) {
   await mkdir(path.join(blogOutput, post.slug), { recursive: true });
   await writeFile(path.join(blogOutput, 'posts', `${post.slug}.json`), `${JSON.stringify(post)}\n`);
   await writeFile(path.join(blogOutput, post.slug, 'index.html'), pageHtml(template, {
-    title: post.title, description: post.summary, url: `${siteUrl}/blog/${post.slug}/`,
+    title: post.title, description: post.summary, url: articleUrl(post.slug),
     coverUrl: post.coverUrl, body: articleMarkup(post, posts[position + 1], posts[position - 1]),
     article: true, data: { index, post },
   }));
 }
+
+await writeFile(path.join(site, 'sitemap.xml'), sitemapXml({
+  homepageUrl,
+  blogUrl,
+  articles: posts.map((post) => ({ url: articleUrl(post.slug), updated: post.updated, date: post.date })),
+}));
 
 console.log(`Synced ${posts.length} published blog articles into ${blogOutput}`);
